@@ -1,0 +1,622 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="pt-5 mx-lg-5">
+        <div class="container-fluid">
+
+            <!-- Heading -->
+            <div class="card mb-4 wow fadeIn">
+
+                <!--Card content-->
+                <div class="card-body d-sm-flex justify-content-between">
+
+                    <h4 class="mb-2 mb-sm-0 pt-1">
+                        <a href="#" target="_blank">Главная</a>
+                        <span>/</span>
+                        <span>Распечатка</span>
+                    </h4>
+
+                    <form class="d-flex justify-content-center">
+                        <!-- Default input -->
+                        <input type="search" placeholder="Поиск по клиентам" aria-label="Search" class="form-control">
+                        <button class="btn btn-primary btn-sm my-0 p" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+            <!-- Heading -->
+
+
+            <!-- Central Modal Large Info-->
+            <div class="modal fade" id="centralModalLGRequestMain" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <p class="heading lead">Данные о клиенте</p>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+
+                        <!--Body-->
+                        <div class="modal-body">
+                            <!-- Extended default form grid -->
+                            <form>
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Ответственный</label>
+                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Ответственный менеджер">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Бюджет</label>
+                                        <input type="password" class="form-control" id="inputPassword4" placeholder="Введите бюджет клиента">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+
+                                <!-- Default input -->
+                                <div class="form-group">
+                                    <label for="inputAddress">ФИО клиента</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="Ввидите ФИО клиента">
+                                </div>
+                                <!-- Default input -->
+                                <div class="form-group">
+                                    <label for="inputAddress2">Адрес клиента</label>
+                                    <input type="text" class="form-control" id="inputAddress2" placeholder="Республика, город, район, улица">
+                                </div>
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputCity">Срок регистрации с</label>
+                                        <input type="text" class="form-control" id="inputCity" placeholder="xx.xx.xxxx">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Срок регистрации по</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="xx.xx.xxxx">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+
+                                <h3 class="mt-4">Документы</h3>
+
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputCity">Улица</label>
+                                        <input type="text" class="form-control" id="inputCity" placeholder="Введите улицу">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Район</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Введите район">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Фамилия начальника</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Введите фамилию начальника">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Отделение</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Отделение и номер">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+
+                                        <select class="form-control form-control-sm">
+                                            <option>Обработана</option>
+                                            <option>Необработанная</option>
+                                            <option>Подтв.заказ и время доставки</option>
+                                            <option>Подгатовка документов</option>
+                                            <option>Отправил на распечатку</option>
+                                            <option>У курьера</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary btn-md">Готово</button>
+                            </form>
+                            <!-- Extended default form grid --><!-- Extended default form grid -->
+                            <form>
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Ответственный</label>
+                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Ответственный менеджер">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Бюджет</label>
+                                        <input class="form-control" id="inputPassword4" placeholder="Введите бюджет клиента">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputAddress">ФИО клиента</label>
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="Ввидите ФИО клиента">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputAddress2">Страна клиента</label>
+                                        <input type="text" class="form-control" id="inputAddress2" placeholder="Ввидите страну клиента">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Дата выдачи документа</label>
+                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Введите дату выдачи">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Кем выдан документ</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Ввидите кем выдан документ">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputAddress">Документ</label>
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="Тип документа">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-3">
+                                        <label for="inputAddress2">Серия и номер документа</label>
+                                        <input type="text" class="form-control" id="inputAddress2" placeholder="Серия и номер документа">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-4">
+                                        <label for="inputEmail4">Гражданство</label>
+                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Ответственный менеджер">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-4">
+                                        <label for="inputPassword4">Место рождения</label>
+                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Введите бюджет клиента">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddress">Дата рождения</label>
+                                        <input type="text" class="form-control" id="inputAddress" placeholder="Ввидите ФИО клиента">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+
+
+                                <!-- Default checked -->
+                                <div class="custom-control custom-checkbox mt-3">
+                                    <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+                                    <label class="custom-control-label" for="defaultChecked2">Если задним числом</label>
+                                </div>
+
+
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCity">Срок регистрации</label>
+                                        <select class="form-control">
+                                            <option>1 месяц</option>
+                                            <option>3 месяца</option>
+                                            <option>6 месяцев</option>
+                                            <option>год</option>
+                                            <option>3 года</option>
+                                        </select>
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-4">
+                                        <label for="inputCity">Срок регистрации с</label>
+                                        <input type="text" class="form-control" id="sregs" placeholder="xx.xx.xxxx">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-4">
+                                        <label for="inputZip">Срок регистрации по</label>
+                                        <input type="text" class="form-control" id="sregpo" placeholder="xx.xx.xxxx">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+
+                                <h3 class="mt-4">Документы</h3>
+
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputCity">Улица</label>
+                                        <input type="text" class="form-control" id="inputCity" placeholder="Введите улицу">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Район</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Введите район">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Фамилия начальника</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Введите фамилию начальника">
+                                    </div>
+                                    <!-- Default input -->
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Отделение</label>
+                                        <input type="text" class="form-control" id="inputZip" placeholder="Отделение и номер">
+                                    </div>
+                                </div>
+                                <!-- Grid row -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+
+                                        <select class="form-control">
+                                            <option>Обработана</option>
+                                            <option>Необработанная</option>
+                                            <option>Подтв.заказ и время доставки</option>
+                                            <option>Подгатовка документов</option>
+                                            <option>Отправил на распечатку</option>
+                                            <option>У курьера</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary btn-md">Готово</button>
+                            </form>
+                            <!-- Extended default form grid -->
+
+                        </div>
+
+                        <!--Footer-->
+
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+            <!-- Central Modal Large Info-->
+
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-12 mb-4">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h2 class="mb-2">04.12.2018</h2>
+                            <!-- Table  -->
+                            <table class="table table-hover main_table">
+                                <!-- Table head -->
+                                <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>Номер сделки</th>
+                                    <th>Контакт</th>
+                                    <th>Телефон</th>
+                                    <th>Срок</th>
+                                    <th>Сумма</th>
+                                    <th>Этап сделки</th>
+                                    <th>Тип</th>
+                                    <th>Примечание</th>
+
+
+                                </tr>
+                                </thead>
+                                <!-- Table head -->
+
+                                <!-- Table body -->
+                                <tbody>
+                                <tr>
+                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
+                                    <td>Михайил Сергеевич</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2655</td>
+                                    <td>Евгений Александрович</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2656</td>
+                                    <td>Елена Игоревна</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                </tbody>
+                                <!-- Table body -->
+                            </table>
+                            <!-- Table  -->
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-12 mb-4">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h2 class="mb-2">05.12.2018</h2>
+                            <!-- Table  -->
+                            <table class="table table-hover main_table">
+                                <!-- Table head -->
+                                <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>Номер сделки</th>
+                                    <th>Контакт</th>
+                                    <th>Телефон</th>
+                                    <th>Срок</th>
+                                    <th>Сумма</th>
+                                    <th>Этап сделки</th>
+                                    <th>Тип</th>
+                                    <th>Примечание</th>
+
+
+                                </tr>
+                                </thead>
+                                <!-- Table head -->
+
+                                <!-- Table body -->
+                                <tbody>
+                                <tr>
+                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
+                                    <td>Михайил Сергеевич</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2655</td>
+                                    <td>Евгений Александрович</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2656</td>
+                                    <td>Елена Игоревна</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                </tbody>
+                                <!-- Table body -->
+                            </table>
+                            <!-- Table  -->
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-12 mb-4">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h2 class="mb-2">06.12.2018</h2>
+                            <!-- Table  -->
+                            <table class="table table-hover main_table">
+                                <!-- Table head -->
+                                <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>Номер сделки</th>
+                                    <th>Контакт</th>
+                                    <th>Телефон</th>
+                                    <th>Срок</th>
+                                    <th>Сумма</th>
+                                    <th>Этап сделки</th>
+                                    <th>Тип</th>
+                                    <th>Примечание</th>
+
+
+                                </tr>
+                                </thead>
+                                <!-- Table head -->
+
+                                <!-- Table body -->
+                                <tbody>
+                                <tr>
+                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
+                                    <td>Михайил Сергеевич</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2655</td>
+                                    <td>Евгений Александрович</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2656</td>
+                                    <td>Елена Игоревна</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                </tbody>
+                                <!-- Table body -->
+                            </table>
+                            <!-- Table  -->
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-12 mb-4">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h2 class="mb-2">07.12.2018</h2>
+                            <!-- Table  -->
+                            <table class="table table-hover main_table">
+                                <!-- Table head -->
+                                <thead class="blue-grey lighten-4">
+                                <tr>
+                                    <th>Номер сделки</th>
+                                    <th>Контакт</th>
+                                    <th>Телефон</th>
+                                    <th>Срок</th>
+                                    <th>Сумма</th>
+                                    <th>Этап сделки</th>
+                                    <th>Тип</th>
+                                    <th>Примечание</th>
+
+
+                                </tr>
+                                </thead>
+                                <!-- Table head -->
+
+                                <!-- Table body -->
+                                <tbody>
+                                <tr>
+                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
+                                    <td>Михайил Сергеевич</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2655</td>
+                                    <td>Евгений Александрович</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                <tr>
+                                    <td>Заявка №2656</td>
+                                    <td>Елена Игоревна</td>
+                                    <td>+ 8 920 352 68 12</td>
+                                    <td>1 год</td>
+                                    <td>3000</td>
+                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
+                                    <td>Обратный звонок</td>
+                                    <td>Перезвонить через пол часа</td>
+                                </tr>
+                                </tbody>
+                                <!-- Table body -->
+                            </table>
+                            <!-- Table  -->
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {% include('/request/js/js-print.html.twig') %}
+{% endblock %}

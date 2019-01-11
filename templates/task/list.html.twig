@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="pt-5 mx-lg-5">
+        <div class="container-fluid">
+
+
+
+
+
+
+
+
+            <div id="myDIV" class="header_tsk">
+                <h2>Список задач</h2>
+                <input type="text" id="myInput" placeholder="Задача....">
+                <span onclick="newElement()" class="addBtn">Добавить</span>
+            </div>
+
+            <ul id="myUL">
+                <li>Отправить завки на распечатку</li>
+                <li class="checked">Перезвонить клиенту от 05.12</li>
+                <li>Посмотреть в окно</li>
+                <li>Еще задача</li>
+                <li>И еще</li>
+                <li>И еще...</li>
+            </ul>
+
+
+
+
+
+        </div>
+        <!-- /.First row-->
+
+        </div>
+
+        </div>
+        <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {% include('/task/js/js-list.html.twig') %}
+{% endblock %}
