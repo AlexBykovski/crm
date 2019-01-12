@@ -16,7 +16,6 @@ final class Version20190112190903 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE document_request ADD created_at DATETIME NOT NULL');
-        $this->addSql('UPDATE TABLE document_request SET created_at = "2019-01-12 12:00:00"');
     }
 
     public function down(Schema $schema) : void
