@@ -54,25 +54,21 @@ class RequestController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         try {
-            $data = json_decode($request->getContent(), true);
-
-            if(!is_array($data) || !isset($data["fio"]) || !isset($data["citizen"]) || !isset($data["birthDate"]) ||
-                !isset($data["birthPlace"]) || !isset($data["type"]) || !isset($data["number"]) || !isset($data["issuedDate"]) ||
-                !isset($data["issuedAuthority"]) || !isset($data["term"]) || !isset($data["comment"]) || !isset($data["phone"])){
+            if($request->request->get("key") !== "CRM1"){
                 throw new \Exception("Incorrect data was received");
             }
 
-            $fio = $data["fio"];
-            $citizen = $data["citizen"];
-            $birthDate = (new DateTime($data["birthDate"])) ? new DateTime($data["birthDate"]) : null;
-            $birthPlace = $data["birthPlace"];
-            $type = $data["type"];
-            $number = $data["number"];
-            $issuedDate = (new DateTime($data["issuedDate"])) ? new DateTime($data["issuedDate"]) : null;
-            $issuedAuthority = $data["issuedAuthority"];
-            $term = $data["term"];
-            $comment = $data["comment"];
-            $phone = $data["phone"];
+            $fio = $request->request->get("fio");
+            $citizen = $request->request->get("citizen");
+            $birthDate = (new DateTime($request->request->get("birthDate"))) ? new DateTime($request->request->get("birthDate")) : null;
+            $birthPlace = $request->request->get("birthPlace");
+            $type = $request->request->get("type");
+            $number = $request->request->get("number");
+            $issuedDate = (new DateTime($request->request->get("issuedDate"))) ? new DateTime($request->request->get("issuedDate")) : null;
+            $issuedAuthority = $request->request->get("issuedAuthority");
+            $term = $request->request->get("term");
+            $comment = $request->request->get("comment");
+            $phone = $request->request->get("phone");
 
             $documentRequest = new DocumentRequest($fio, $citizen, $birthDate, $birthPlace, $type, $number, $issuedDate,
                 $issuedAuthority, $term, $comment, $phone);
