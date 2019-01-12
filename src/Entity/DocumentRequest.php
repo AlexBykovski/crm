@@ -6,11 +6,15 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DocumentRequestRepository")
  * @ORM\Table(name="document_request")
  */
 class DocumentRequest
 {
+    const STATUSES_VIEW = [
+        "STATUS_NOT_HANDLED" => "НЕ ОБРАБОТАНА",
+    ];
+
     const STATUS_NOT_HANDLED = "STATUS_NOT_HANDLED";
 
     /**
@@ -106,6 +110,13 @@ class DocumentRequest
     private $status;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * DocumentRequest constructor.
      * @param null|string $fio
      * @param null|string $citizen
@@ -133,6 +144,7 @@ class DocumentRequest
         $this->comment = $comment;
         $this->phone = $phone;
         $this->status = self::STATUS_NOT_HANDLED;
+        $this->createdAt = new DateTime();
     }
 
     /**
@@ -341,5 +353,29 @@ class DocumentRequest
     public function setStatus(string $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getViewStatus()
+    {
+        return self::STATUSES_VIEW[$this->status];
     }
 }

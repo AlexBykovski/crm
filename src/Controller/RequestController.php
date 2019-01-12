@@ -22,7 +22,26 @@ class RequestController extends AbstractController
      */
     public function showManagerListAction(Request $request)
     {
-        return $this->render('request/manager-list.html.twig', []);
+        $docRequests = $this->getDoctrine()->getRepository(DocumentRequest::class)->searchInitForManager();
+
+        $parsedDocRequests = [];
+
+        /** @var DocumentRequest $docRequest */
+        foreach ($docRequests as $docRequest){
+            $date = $docRequest->getCreatedAt()->format("d.m.Y");
+
+            if(!array_key_exists($date, $parsedDocRequests)){
+                $parsedDocRequests[$date] = [];
+            }
+
+            $parsedDocRequests[$date][] = $docRequest;
+        }
+
+        ksort($parsedDocRequests);
+
+        return $this->render('request/manager-list.html.twig', [
+            "docRequests" => $parsedDocRequests,
+        ]);
     }
 
     /**

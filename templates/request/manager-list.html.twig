@@ -257,6 +257,7 @@
             <!-- Central Modal Large Info-->
 
 
+            {% for date, groupDocRequest in docRequests %}
             <!--Grid row-->
             <div class="row">
 
@@ -268,7 +269,7 @@
 
                         <!--Card content-->
                         <div class="card-body">
-                            <h2 class="mb-2">04.12.2018</h2>
+                            <h2 class="mb-2">{{ date }}</h2>
                             <button type="button" class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</button>
                             <!-- Table  -->
                             <table class="table table-hover main_table">
@@ -283,44 +284,24 @@
                                     <th>Этап сделки</th>
                                     <th>Тип</th>
                                     <th>Примечание</th>
-
-
                                 </tr>
                                 </thead>
                                 <!-- Table head -->
 
                                 <!-- Table body -->
                                 <tbody>
-                                <tr>
-                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain" class="n_sd">Заявка №2654</a></td>
-                                    <td>Михайил Сергеевич</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2655</td>
-                                    <td>Евгений Александрович</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2656</td>
-                                    <td>Елена Игоревна</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
+                                {% for doc in groupDocRequest %}
+                                    <tr>
+                                        <td><a data-toggle="modal" data-target="#centralModalLGRequestMain" class="n_sd">Заявка №{{ doc.id }}</a></td>
+                                        <td>{{ doc.fio }}</td>
+                                        <td>{{ doc.phone }}</td>
+                                        <td>{{ doc.term }}</td>
+                                        <td>3000</td>
+                                        <td><button type="button" class="btn btn-red">{{ doc.getViewStatus() }}</button></td>
+                                        <td>Обратный звонок</td>
+                                        <td>Перезвонить через пол часа</td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                                 <!-- Table body -->
                             </table>
@@ -336,246 +317,7 @@
 
             </div>
             <!--Grid row-->
-
-
-            <!--Grid row-->
-            <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-12 mb-4">
-
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card content-->
-                        <div class="card-body">
-                            <h2 class="mb-2">05.12.2018</h2>
-                            <!-- Table  -->
-                            <table class="table table-hover main_table">
-                                <!-- Table head -->
-                                <thead class="blue-grey lighten-4">
-                                <tr>
-                                    <th>Номер сделки</th>
-                                    <th>Контакт</th>
-                                    <th>Телефон</th>
-                                    <th>Срок</th>
-                                    <th>Сумма</th>
-                                    <th>Этап сделки</th>
-                                    <th>Тип</th>
-                                    <th>Примечание</th>
-
-
-                                </tr>
-                                </thead>
-                                <!-- Table head -->
-
-                                <!-- Table body -->
-                                <tbody>
-                                <tr>
-                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
-                                    <td>Михайил Сергеевич</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2655</td>
-                                    <td>Евгений Александрович</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2656</td>
-                                    <td>Елена Игоревна</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                </tbody>
-                                <!-- Table body -->
-                            </table>
-                            <!-- Table  -->
-
-                        </div>
-
-                    </div>
-                    <!--/.Card-->
-
-                </div>
-                <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
-
-
-            <!--Grid row-->
-            <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-12 mb-4">
-
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card content-->
-                        <div class="card-body">
-                            <h2 class="mb-2">06.12.2018</h2>
-                            <!-- Table  -->
-                            <table class="table table-hover main_table">
-                                <!-- Table head -->
-                                <thead class="blue-grey lighten-4">
-                                <tr>
-                                    <th>Номер сделки</th>
-                                    <th>Контакт</th>
-                                    <th>Телефон</th>
-                                    <th>Срок</th>
-                                    <th>Сумма</th>
-                                    <th>Этап сделки</th>
-                                    <th>Тип</th>
-                                    <th>Примечание</th>
-
-
-                                </tr>
-                                </thead>
-                                <!-- Table head -->
-
-                                <!-- Table body -->
-                                <tbody>
-                                <tr>
-                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
-                                    <td>Михайил Сергеевич</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2655</td>
-                                    <td>Евгений Александрович</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2656</td>
-                                    <td>Елена Игоревна</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                </tbody>
-                                <!-- Table body -->
-                            </table>
-                            <!-- Table  -->
-
-                        </div>
-
-                    </div>
-                    <!--/.Card-->
-
-                </div>
-                <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
-
-
-            <!--Grid row-->
-            <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-12 mb-4">
-
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card content-->
-                        <div class="card-body">
-                            <h2 class="mb-2">07.12.2018</h2>
-                            <!-- Table  -->
-                            <table class="table table-hover main_table">
-                                <!-- Table head -->
-                                <thead class="blue-grey lighten-4">
-                                <tr>
-                                    <th>Номер сделки</th>
-                                    <th>Контакт</th>
-                                    <th>Телефон</th>
-                                    <th>Срок</th>
-                                    <th>Сумма</th>
-                                    <th>Этап сделки</th>
-                                    <th>Тип</th>
-                                    <th>Примечание</th>
-
-
-                                </tr>
-                                </thead>
-                                <!-- Table head -->
-
-                                <!-- Table body -->
-                                <tbody>
-                                <tr>
-                                    <td><a data-toggle="modal" data-target="#centralModalLGRequestMain">Заявка №2654</a></td>
-                                    <td>Михайил Сергеевич</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-green">Обработана</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2655</td>
-                                    <td>Евгений Александрович</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-yellow">На распечатке</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                <tr>
-                                    <td>Заявка №2656</td>
-                                    <td>Елена Игоревна</td>
-                                    <td>+ 8 920 352 68 12</td>
-                                    <td>1 год</td>
-                                    <td>3000</td>
-                                    <td><button type="button" class="btn btn-light-blue">Перезвонить</button></td>
-                                    <td>Обратный звонок</td>
-                                    <td>Перезвонить через пол часа</td>
-                                </tr>
-                                </tbody>
-                                <!-- Table body -->
-                            </table>
-                            <!-- Table  -->
-
-                        </div>
-
-                    </div>
-                    <!--/.Card-->
-
-                </div>
-                <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
+            {% endfor %}
         </div>
     </main>
 {% endblock %}
