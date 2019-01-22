@@ -1,0 +1,177 @@
+<!--Header-->
+<div class="modal-header">
+    <p class="heading lead">Карточка клиента</p>
+    <button type="button" class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</button>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative;">
+        <span aria-hidden="true" class="white-text">&times;</span>
+    </button>
+</div>
+
+<!--Body-->
+<div class="modal-body">
+    <!-- Extended default form grid -->
+    <form id="edit-document-request-form">
+        {{ form_widget(form._token) }}
+        <!-- Grid row -->
+        <div class="form-row">
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.responsibleManager) }}
+                {{ form_widget(form.responsibleManager, {attr: {"placeholder": "Ответственный менеджер", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.budget) }}
+                {{ form_widget(form.budget, {attr: {"placeholder": "Введите бюджет клиента", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-6">
+                {{ form_label(form.fio) }}
+                {{ form_widget(form.fio, {attr: {"placeholder": "Введите ФИО клиента", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+        </div>
+        <!-- Grid row -->
+        <!-- Grid row -->
+        <div class="form-row">
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.issuedDate) }}
+                {{ form_widget(form.issuedDate, {attr: {"placeholder": "Введите дату выдачи", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.issuedAuthority) }}
+                {{ form_widget(form.issuedAuthority, {attr: {"placeholder": "Введите кем выдан документ", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.type) }}
+                {{ form_widget(form.type, {attr: {"class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.number) }}
+                {{ form_widget(form.number, {attr: {"placeholder": "Серия и номер документа", "class" : "form-control"}}) }}
+            </div>
+        </div>
+        <!-- Grid row -->
+        <!-- Grid row -->
+        <div class="form-row">
+            <!-- Default input -->
+            <div class="form-group col-md-4">
+                {{ form_label(form.citizen) }}
+                {{ form_widget(form.citizen, {attr: {"class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-4">
+                {{ form_label(form.birthPlace) }}
+                {{ form_widget(form.birthPlace, {attr: {"placeholder": "Введите место рождения клиента", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-4">
+                {{ form_label(form.birthDate) }}
+                {{ form_widget(form.birthDate, {attr: {"placeholder": "Дата рождения", "class" : "form-control"}}) }}
+            </div>
+        </div>
+        <!-- Grid row -->
+
+        <!-- Default checked -->
+        <div class="custom-control custom-checkbox mt-3">
+            {{ form_widget(form.isBackDating, {attr: {"class" : "custom-control-input"}}) }}
+            <label class="custom-control-label" for="{{ form.isBackDating.vars.id }}">{{ form.isBackDating.vars.label }}</label>
+        </div>
+
+        <!-- Grid row -->
+        <div class="form-row">
+            <!-- Default input -->
+            <div class="form-group col-md-4">
+                {{ form_label(form.term) }}
+                {{ form_widget(form.term, {attr: {"class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-4">
+                {{ form_label(form.registerFrom) }}
+                {{ form_widget(form.registerFrom, {attr: {"placeholder": "xx.xx.xxxx", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-4">
+                {{ form_label(form.registerTo) }}
+                {{ form_widget(form.registerTo, {attr: {"placeholder": "xx.xx.xxxx", "class" : "form-control"}}) }}
+            </div>
+        </div>
+        <!-- Grid row -->
+
+        <h3 class="mt-4">Данные о доставке</h3>
+
+        <!-- Grid row -->
+        <div class="form-row">
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.deliveryDetail.deliveryDate) }}
+                {{ form_widget(form.deliveryDetail.deliveryDate, {attr: {"placeholder": "Введите дату доставки", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.deliveryDetail.deliveryTime) }}
+                {{ form_widget(form.deliveryDetail.deliveryTime, {attr: {"placeholder": "Введите время доставки", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.deliveryDetail.address) }}
+                {{ form_widget(form.deliveryDetail.address, {attr: {"placeholder": "Введите адрес доставки", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-3">
+                {{ form_label(form.deliveryDetail.station) }}
+                {{ form_widget(form.deliveryDetail.station, {attr: {"placeholder": "Введите станцию доставки", "class" : "form-control"}}) }}
+            </div>
+        </div>
+        <!-- Grid row -->
+
+        <h3 class="mt-4">Документы</h3>
+
+        <!-- Grid row -->
+        <div class="form-row">
+            <!-- Default input -->
+            <div class="form-group col-md-6">
+                {{ form_label(form.documentDetail.street) }}
+                {{ form_widget(form.documentDetail.street, {attr: {"placeholder": "Введите улицу", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-6">
+                {{ form_label(form.documentDetail.district) }}
+                {{ form_widget(form.documentDetail.district, {attr: {"placeholder": "Введите район", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-6">
+                {{ form_label(form.documentDetail.bossLastName) }}
+                {{ form_widget(form.documentDetail.bossLastName, {attr: {"placeholder": "Введите фамилию начальника", "class" : "form-control"}}) }}
+                <label for="inputZip">Фамилия начальника</label>
+                <input type="text" class="form-control" id="inputZip" placeholder="Введите фамилию начальника">
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-6">
+                {{ form_label(form.documentDetail.department) }}
+                {{ form_widget(form.documentDetail.department, {attr: {"placeholder": "Отделение и номер", "class" : "form-control"}}) }}
+            </div>
+        </div>
+        <!-- Grid row -->
+        <div class="form-row">
+            <div class="form-group col-md-6" >
+                {{ form_label(form.comment) }}
+                {{ form_widget(form.comment, {attr: {"class" : "form-control", "rows" : 3}}) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(form.status) }}
+                {{ form_widget(form.status, {attr: {"class" : "form-control"}}) }}
+            </div>
+        </div>
+
+        <button id="edit-document-request-form-button" type="button" class="btn btn-primary btn-md">Готово</button>
+    </form>
+    <!-- Extended default form grid -->
+
+</div>
+
+<!--Footer-->

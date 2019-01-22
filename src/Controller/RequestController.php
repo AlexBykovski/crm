@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\DocumentRequest;
+use App\Form\DocumentRequestForm;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/request")
@@ -22,25 +24,8 @@ class RequestController extends AbstractController
      */
     public function showManagerListAction(Request $request)
     {
-        $docRequests = $this->getDoctrine()->getRepository(DocumentRequest::class)->searchInitForManager();
-
-        $parsedDocRequests = [];
-
-        /** @var DocumentRequest $docRequest */
-        foreach ($docRequests as $docRequest){
-            $date = $docRequest->getCreatedAt()->format("d.m.Y");
-
-            if(!array_key_exists($date, $parsedDocRequests)){
-                $parsedDocRequests[$date] = [];
-            }
-
-            $parsedDocRequests[$date][] = $docRequest;
-        }
-
-        ksort($parsedDocRequests);
-
         return $this->render('request/manager-list.html.twig', [
-            "docRequests" => $parsedDocRequests,
+            "docRequests" => $this->getInitDocuments(),
         ]);
     }
 
@@ -51,7 +36,9 @@ class RequestController extends AbstractController
      */
     public function showLogisticsListAction(Request $request)
     {
-        return $this->render('request/logistics-list.html.twig', []);
+        return $this->render('request/logistics-list.html.twig', [
+            "docRequests" => $this->getInitDocuments(),
+        ]);
     }
 
     /**
@@ -61,7 +48,9 @@ class RequestController extends AbstractController
      */
     public function showPrintListAction(Request $request)
     {
-        return $this->render('request/print-list.html.twig', []);
+        return $this->render('request/print-list.html.twig', [
+            "docRequests" => $this->getInitDocuments(),
+        ]);
     }
 
     /**
@@ -104,5 +93,53 @@ class RequestController extends AbstractController
         }
 
         return new JsonResponse(["success" => true]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_MANAGER') or has_role('ROLE_LOGISTICIAN') or has_role('ROLE_PRINTER')")
+     *
+     * @Route("/edit-document-request/{id}", name="edit_document_request")
+     * @ParamConverter("documentRequest", class="App:DocumentRequest", options={"id" = "id"})
+     */
+    public function editDocumentRequestAction(Request $request, DocumentRequest $documentRequest)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(DocumentRequestForm::class, $documentRequest, ["user_role" => $this->getUser()->getRole()]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->flush();
+
+            return new JsonResponse(["success" => true, "redirectUrl" => $request->headers->get('referer')]);
+        }
+
+        return $this->render('request/modal/edit-document-request.html.twig', [
+            "form" => $form->createView(),
+        ]);
+    }
+
+    public function getInitDocuments()
+    {
+        $docRequests = $this->getDoctrine()->getRepository(DocumentRequest::class)->search($this->getUser());
+
+        $parsedDocRequests = [];
+
+        /** @var DocumentRequest $docRequest */
+        foreach ($docRequests as $docRequest){
+            $date = $docRequest->getCreatedAt()->format("d.m.Y");
+
+            if(!array_key_exists($date, $parsedDocRequests)){
+                $parsedDocRequests[$date] = [];
+            }
+
+            $parsedDocRequests[$date][] = $docRequest;
+        }
+
+        krsort($parsedDocRequests);
+
+        return $parsedDocRequests;
     }
 }
