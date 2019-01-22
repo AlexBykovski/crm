@@ -30,5 +30,9 @@ abstract class User extends BaseUser
     {
         parent::__construct();
     }
+
+    public function getSearchStatuses(){}
+
+    public function getRole(){}
 }
 

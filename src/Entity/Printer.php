@@ -16,4 +16,18 @@ class Printer extends User
 
         $this->addRole(User::ROLE_PRINTER);
     }
+
+    public function getSearchStatuses()
+    {
+        $statuses = array_keys(DocumentRequest::PRINTER_STATUSES);
+
+        $statuses[] = DocumentRequest::STATUS_MOVE_TO_PRINT;
+
+        return $statuses;
+    }
+
+    public function getRole()
+    {
+        return User::ROLE_PRINTER;
+    }
 }

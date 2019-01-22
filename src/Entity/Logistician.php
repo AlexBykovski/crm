@@ -16,4 +16,18 @@ class Logistician extends User
 
         $this->addRole(User::ROLE_LOGISTICIAN);
     }
+
+    public function getSearchStatuses()
+    {
+        $statuses = array_keys(DocumentRequest::LOGISTICIAN_STATUSES);
+
+        $statuses[] = DocumentRequest::STATUS_MOVE_TO_PRINT;
+
+        return $statuses;
+    }
+
+    public function getRole()
+    {
+        return User::ROLE_LOGISTICIAN;
+    }
 }

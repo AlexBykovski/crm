@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DocumentRequestRepository")
@@ -12,10 +13,46 @@ use Doctrine\ORM\Mapping as ORM;
 class DocumentRequest
 {
     const STATUSES_VIEW = [
-        "STATUS_NOT_HANDLED" => "НЕ ОБРАБОТАНА",
+        self::STATUS_NOT_HANDLED => "Не обработана",
+        self::STATUS_CONFIRM_REQUEST_DELIVERY => "Подтверждение заказа и доставки",
+        self::STATUS_PREPARE_DOCUMENTS => "Подготовка документов",
+        self::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        self::STATUS_REJECT => "Отказ",
+        self::STATUS_PRINTED => "Распечатано",
+        self::STATUS_COURIER => "Курьер",
+        self::STATUS_TRANSPOSITION => "Перенос",
+        self::STATUS_PAYMENT => "Оплата",
+    ];
+
+    const MANAGER_STATUSES = [
+        DocumentRequest::STATUS_NOT_HANDLED => "Не обработана",
+        DocumentRequest::STATUS_CONFIRM_REQUEST_DELIVERY => "Подтверждение заказа и доставки",
+        DocumentRequest::STATUS_PREPARE_DOCUMENTS => "Подготовка документов",
+        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        DocumentRequest::STATUS_REJECT => "Отказ",
+    ];
+
+    const PRINTER_STATUSES = [
+        DocumentRequest::STATUS_PRINTED => "Распечатано",
+        DocumentRequest::STATUS_COURIER => "Курьер",
+        DocumentRequest::STATUS_REJECT => "Отказ",
+    ];
+
+    const LOGISTICIAN_STATUSES = [
+        DocumentRequest::STATUS_TRANSPOSITION => "Перенос",
+        DocumentRequest::STATUS_PAYMENT => "Оплата",
+        DocumentRequest::STATUS_REJECT => "Отказ",
     ];
 
     const STATUS_NOT_HANDLED = "STATUS_NOT_HANDLED";
+    const STATUS_CONFIRM_REQUEST_DELIVERY = "STATUS_CONFIRM_REQUEST_DELIVERY";
+    const STATUS_PREPARE_DOCUMENTS = "STATUS_PREPARE_DOCUMENTS";
+    const STATUS_MOVE_TO_PRINT = "STATUS_MOVE_TO_PRINT";
+    const STATUS_REJECT = "STATUS_REJECT";
+    const STATUS_PRINTED = "STATUS_PRINTED";
+    const STATUS_COURIER = "STATUS_COURIER";
+    const STATUS_TRANSPOSITION = "STATUS_TRANSPOSITION";
+    const STATUS_PAYMENT = "STATUS_PAYMENT";
 
     /**
      * @var integer|null
@@ -117,6 +154,59 @@ class DocumentRequest
     private $createdAt;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $responsibleManager;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $budget;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isBackDating = 0;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $registerFrom;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $registerTo;
+
+    /**
+     * @Assert\Valid()
+     *
+     * @var DeliveryDetail
+     *
+     * @ORM\OneToOne(targetEntity="DeliveryDetail", mappedBy="documentRequest", cascade={"persist", "remove"})
+     */
+    private $deliveryDetail;
+
+    /**
+     * @Assert\Valid()
+     *
+     * @var DocumentDetail
+     *
+     * @ORM\OneToOne(targetEntity="DocumentDetail", mappedBy="documentRequest", cascade={"persist", "remove"})
+     */
+    private $documentDetail;
+
+    /**
      * DocumentRequest constructor.
      * @param null|string $fio
      * @param null|string $citizen
@@ -145,6 +235,9 @@ class DocumentRequest
         $this->phone = $phone;
         $this->status = self::STATUS_NOT_HANDLED;
         $this->createdAt = new DateTime();
+
+        $this->deliveryDetail = new DeliveryDetail($this);
+        $this->documentDetail = new DocumentDetail($this);
     }
 
     /**
@@ -369,6 +462,118 @@ class DocumentRequest
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getResponsibleManager(): ?string
+    {
+        return $this->responsibleManager;
+    }
+
+    /**
+     * @param null|string $responsibleManager
+     */
+    public function setResponsibleManager(?string $responsibleManager): void
+    {
+        $this->responsibleManager = $responsibleManager;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getBudget(): ?string
+    {
+        return $this->budget;
+    }
+
+    /**
+     * @param null|string $budget
+     */
+    public function setBudget(?string $budget): void
+    {
+        $this->budget = $budget;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBackDating(): bool
+    {
+        return $this->isBackDating;
+    }
+
+    /**
+     * @param bool $isBackDating
+     */
+    public function setIsBackDating(bool $isBackDating): void
+    {
+        $this->isBackDating = $isBackDating;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getRegisterFrom(): ?DateTime
+    {
+        return $this->registerFrom;
+    }
+
+    /**
+     * @param DateTime|null $registerFrom
+     */
+    public function setRegisterFrom(?DateTime $registerFrom): void
+    {
+        $this->registerFrom = $registerFrom;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getRegisterTo(): ?DateTime
+    {
+        return $this->registerTo;
+    }
+
+    /**
+     * @param DateTime|null $registerTo
+     */
+    public function setRegisterTo(?DateTime $registerTo): void
+    {
+        $this->registerTo = $registerTo;
+    }
+
+    /**
+     * @return DeliveryDetail
+     */
+    public function getDeliveryDetail(): DeliveryDetail
+    {
+        return $this->deliveryDetail;
+    }
+
+    /**
+     * @param DeliveryDetail $deliveryDetail
+     */
+    public function setDeliveryDetail(DeliveryDetail $deliveryDetail): void
+    {
+        $this->deliveryDetail = $deliveryDetail;
+    }
+
+    /**
+     * @return DocumentDetail
+     */
+    public function getDocumentDetail(): DocumentDetail
+    {
+        return $this->documentDetail;
+    }
+
+    /**
+     * @param DocumentDetail $documentDetail
+     */
+    public function setDocumentDetail(DocumentDetail $documentDetail): void
+    {
+        $this->documentDetail = $documentDetail;
     }
 
     /**

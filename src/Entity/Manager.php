@@ -17,4 +17,14 @@ class Manager extends User
 
         $this->addRole(User::ROLE_MANAGER);
     }
+
+    public function getSearchStatuses()
+    {
+        return array_keys(DocumentRequest::MANAGER_STATUSES);
+    }
+
+    public function getRole()
+    {
+        return User::ROLE_MANAGER;
+    }
 }
