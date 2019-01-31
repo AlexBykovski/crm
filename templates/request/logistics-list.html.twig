@@ -16,10 +16,13 @@
                         <span>Логистика</span>
                     </h4>
 
-                    <form class="d-flex justify-content-center">
+                    <form class="d-flex justify-content-center" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate>
                         <!-- Default input -->
-                        <input type="search" placeholder="Поиск по клиентам" aria-label="Search" class="form-control">
-                        <button class="btn btn-primary btn-sm my-0 p" type="submit">
+                        {{ form_widget(form._token) }}
+
+                        {{ form_widget(form.text, {attr: {"class" : "form-control"}}) }}
+
+                        <button id="{{ form.submit.vars.id }}" name="{{ form.submit.vars.name }}" class="btn btn-primary btn-sm my-0 p" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
 
