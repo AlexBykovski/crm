@@ -3,6 +3,8 @@
 namespace App\Controller;
 use App\Entity\DocumentRequest;
 use App\Form\DocumentRequestForm;
+use App\Form\SearchDocumentForm;
+use App\Provider\DocumentProvider;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,10 +24,14 @@ class RequestController extends AbstractController
      *
      * @Security("has_role('ROLE_MANAGER')")
      */
-    public function showManagerListAction(Request $request)
+    public function showManagerListAction(Request $request, DocumentProvider $provider)
     {
+        $form = $form = $this->createForm(SearchDocumentForm::class);
+        $form->handleRequest($request);
+
         return $this->render('request/manager-list.html.twig', [
-            "docRequests" => $this->getInitDocuments(),
+            "docRequests" => $provider->provide($form, $this->getUser()),
+            "form" => $form->createView(),
         ]);
     }
 
@@ -34,10 +40,14 @@ class RequestController extends AbstractController
      *
      * @Security("has_role('ROLE_LOGISTICIAN')")
      */
-    public function showLogisticsListAction(Request $request)
+    public function showLogisticsListAction(Request $request, DocumentProvider $provider)
     {
+        $form = $form = $this->createForm(SearchDocumentForm::class);
+        $form->handleRequest($request);
+
         return $this->render('request/logistics-list.html.twig', [
-            "docRequests" => $this->getInitDocuments(),
+            "docRequests" => $provider->provide($form, $this->getUser()),
+            "form" => $form->createView(),
         ]);
     }
 
@@ -46,10 +56,14 @@ class RequestController extends AbstractController
      *
      * @Security("has_role('ROLE_PRINTER')")
      */
-    public function showPrintListAction(Request $request)
+    public function showPrintListAction(Request $request, DocumentProvider $provider)
     {
+        $form = $form = $this->createForm(SearchDocumentForm::class);
+        $form->handleRequest($request);
+
         return $this->render('request/print-list.html.twig', [
-            "docRequests" => $this->getInitDocuments(),
+            "docRequests" => $provider->provide($form, $this->getUser()),
+            "form" => $form->createView(),
         ]);
     }
 
@@ -119,27 +133,5 @@ class RequestController extends AbstractController
         return $this->render('request/modal/edit-document-request.html.twig', [
             "form" => $form->createView(),
         ]);
-    }
-
-    public function getInitDocuments()
-    {
-        $docRequests = $this->getDoctrine()->getRepository(DocumentRequest::class)->search($this->getUser());
-
-        $parsedDocRequests = [];
-
-        /** @var DocumentRequest $docRequest */
-        foreach ($docRequests as $docRequest){
-            $date = $docRequest->getCreatedAt()->format("d.m.Y");
-
-            if(!array_key_exists($date, $parsedDocRequests)){
-                $parsedDocRequests[$date] = [];
-            }
-
-            $parsedDocRequests[$date][] = $docRequest;
-        }
-
-        krsort($parsedDocRequests);
-
-        return $parsedDocRequests;
     }
 }
