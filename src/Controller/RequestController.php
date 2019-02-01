@@ -4,9 +4,14 @@ namespace App\Controller;
 use App\Entity\DocumentRequest;
 use App\Form\DocumentRequestForm;
 use App\Form\SearchDocumentForm;
+use App\PDF\Pdf;
 use App\Provider\DocumentProvider;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use FPDF;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,6 +70,19 @@ class RequestController extends AbstractController
             "docRequests" => $provider->provide($form, $this->getUser()),
             "form" => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/download-document/{ids}", name="request_download_document")
+     *
+     */
+    public function downloadDocumentAction(Request $request, $ids)
+    {
+        $rootDir = $this->getParameter("kernel.root_dir");
+
+
+
+        return new JsonResponse($rootDir);
     }
 
     /**
@@ -132,6 +150,7 @@ class RequestController extends AbstractController
 
         return $this->render('request/modal/edit-document-request.html.twig', [
             "form" => $form->createView(),
+            "doc" => $documentRequest,
         ]);
     }
 }

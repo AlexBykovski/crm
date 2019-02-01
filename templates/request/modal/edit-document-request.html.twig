@@ -1,7 +1,7 @@
 <!--Header-->
 <div class="modal-header">
     <p class="heading lead">Карточка клиента</p>
-    <button type="button" class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</button>
+    <a href="{{ path("request_download_document", {ids: doc.id}) }}" download class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</a>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative;">
         <span aria-hidden="true" class="white-text">&times;</span>
     </button>
