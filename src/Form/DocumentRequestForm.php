@@ -23,6 +23,9 @@ class DocumentRequestForm extends AbstractType
     {
         $userRole = $options["user_role"];
 
+        /** @var DocumentRequest $document */
+        $document = $builder->getData();
+
         $builder
             ->add('responsibleManager', TextType::class, [
                 'required' => false,
@@ -81,11 +84,17 @@ class DocumentRequestForm extends AbstractType
                 'required' => false,
                 'label' => "Срок регистрации с",
                 'widget' => "single_text",
+                'attr' => [
+                    'readonly' => !$document->isBackDating(),
+                ],
             ])
             ->add('registerTo', DateType::class, [
                 'required' => false,
                 'label' => "Срок регистрации по",
                 'widget' => "single_text",
+                'attr' => [
+                    'readonly' => !$document->isBackDating(),
+                ],
             ])
             ->add('status', ChoiceType::class, [
                 'required' => false,
@@ -133,7 +142,7 @@ class DocumentRequestForm extends AbstractType
             "Беларусь" => "Беларусь",
             "Казахстан" => "Казахстан",
             "Узбекистан" => "Узбекистан",
-            "Туркмения" => "Туркмения",
+            "Туркменистан" => "Туркменистан",
             "Молдавия" => "Молдавия",
             "Таджикистан" => "Таджикистан",
             "Киргизия" => "Киргизия",
@@ -146,7 +155,6 @@ class DocumentRequestForm extends AbstractType
     protected function getTermChoices()
     {
         return [
-            "1 месяц" => "1 месяц",
             "3 месяца" => "3 месяца",
             "6 месяцев" => "6 месяцев",
             "год" => "год",
