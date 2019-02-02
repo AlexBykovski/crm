@@ -15,7 +15,9 @@
                         <span>/</span>
                         <span>Заявки</span>
                     </h4>
-                    <button type="button" class="btn btn-outline-secondary waves-effect some_btn_rise">Поработать</button>
+
+                    {% set isInactiveWork = app.user.workUpdatedAt | date("Y-m-d") < "now" | date("Y-m-d") %}
+                    <button id="work-manager" type="button" data-href="{{ path("work_manager_request") }}" class="btn btn-outline-secondary waves-effect some_btn_rise">Поработать <i style="color: {{ isInactiveWork ? "red" : "green" }};" data-is-active="{{ not isInactiveWork }}" class="fa fa-arrow-up --red"></i></button>
                     <form class="d-flex justify-content-center" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate>
                         {{ form_widget(form._token) }}
                         <!-- Default input -->
@@ -116,4 +118,5 @@
 {% block javascripts %}
     {% include('/request/js/js-manager.html.twig') %}
     <script src="/js/client/edit-document-request.js"></script>
+    <script src="/js/client/manager-work.js"></script>
 {% endblock %}
