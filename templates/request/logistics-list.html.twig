@@ -85,7 +85,7 @@
                                             <td><a data-id="{{ doc.id }}">Заявка №{{ doc.id }}</a></td>
                                             <td>{{ doc.fio }}</td>
                                             <td>{{ doc.phone }}</td>
-                                            <td>{{ doc.term }}</td>
+                                            <td>{{ doc.getRegistrationTerm() }}</td>
                                             <td>{{ doc.budget }}</td>
                                             <td><button type="button" class="btn btn-red">{{ doc.getViewStatus() }}</button></td>
                                             <td>{{ doc.type }}</td>
