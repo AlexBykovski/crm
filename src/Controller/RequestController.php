@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 use App\Entity\DocumentRequest;
+use App\Entity\Manager;
 use App\Form\DocumentRequestForm;
 use App\Form\SearchDocumentForm;
 use App\Provider\DocumentProvider;
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -133,5 +135,52 @@ class RequestController extends AbstractController
         return $this->render('request/modal/edit-document-request.html.twig', [
             "form" => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_MANAGER')")
+     *
+     * @Route("/work-manager/", name="work_manager_request")
+     * @throws \Exception
+     */
+    public function workManagerAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Manager $manager */
+        $manager = $this->getUser();
+        /** @var DateTime $workedAt */
+        $workedAt = $manager->getWorkUpdatedAt();
+        $cloneWorkedAt = clone $workedAt;
+        $cloneWorkedAt->add(new DateInterval('P5D'));
+        $now = new DateTime();
+
+        if($cloneWorkedAt->format("Y-m-d") < $now->format("Y-m-d")){
+            $manager->setWorkUpdatedAt($now);
+            $em->flush();
+
+            return new JsonResponse(["success" => true]);
+        }
+
+        if($workedAt->format("Y-m-d") === $now->format("Y-m-d")){
+            return new JsonResponse(["success" => false, "message" => "Вы уже работаете"]);
+        }
+
+        $dayStart = new DateTime();
+        $dayStart->sub(new DateInterval('P5D'));
+        $dayStart->setTime(0,0,0);
+        $workedAt->setTime(23, 59, 59);
+
+        $countUnhandledDocuments = (int)$em->getRepository(DocumentRequest::class)
+            ->findCountBetweenDates($dayStart, $workedAt, [DocumentRequest::STATUS_NOT_HANDLED])[0]["count"];
+
+        if(!$countUnhandledDocuments){
+            $manager->setWorkUpdatedAt($now);
+            $em->flush();
+
+            return new JsonResponse(["success" => true]);
+        }
+
+        return new JsonResponse(["success" => false, "message" => "Количество необработанных заявок: " . $countUnhandledDocuments]);
     }
 }

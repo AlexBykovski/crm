@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Manager extends User
 {
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $workUpdatedAt;
+
     public function __construct()
     {
         parent::__construct();
@@ -26,5 +34,21 @@ class Manager extends User
     public function getRole()
     {
         return User::ROLE_MANAGER;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getWorkUpdatedAt(): DateTime
+    {
+        return $this->workUpdatedAt;
+    }
+
+    /**
+     * @param DateTime $workUpdatedAt
+     */
+    public function setWorkUpdatedAt(DateTime $workUpdatedAt): void
+    {
+        $this->workUpdatedAt = $workUpdatedAt;
     }
 }
