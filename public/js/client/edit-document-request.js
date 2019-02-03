@@ -1,16 +1,16 @@
 $(document).ready(function(){
     const BUDGET = {
         "3 месяца" : "2000",
-        "6 месяцев" : "2500",
-        "год" : "3000",
-        "3 года" : "4000",
+        "1 год" : "2500",
+        "3 года" : "3500",
+        "5 лет" : "4500"
     };
 
     const DATE_END_ADD = {
         "3 месяца" : {months: 3},
-        "6 месяцев" : {months: 6},
-        "год" : {years: 1},
+        "1 год" : {years: 1},
         "3 года" : {years: 3},
+        "5 лет" : {years: 5},
     };
 
     let modal = $("#centralModalLGRequestMain");
