@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\DocumentGenerator\DocumentsGenerator;
 use App\Entity\DocumentRequest;
 use App\Form\DocumentRequestForm;
 use App\Form\SearchDocumentForm;
@@ -74,15 +75,24 @@ class RequestController extends AbstractController
 
     /**
      * @Route("/download-document/{ids}", name="request_download_document")
-     *
      */
     public function downloadDocumentAction(Request $request, $ids)
     {
-        $rootDir = $this->getParameter("kernel.root_dir");
+        /** @var DocumentsGenerator $documentsGenerator */
+        $documentsGenerator = $this->get("app.document_generator.documents_generator");
+        $parsedIds = explode(',', $ids);
 
+        if(!count($parsedIds)){
+            throw new \Exception("Incorrect ids : " . $ids);
+        }
 
+        $filePath = $documentsGenerator->generateDocuments($parsedIds);
 
-        return new JsonResponse($rootDir);
+        if(!$filePath){
+            throw new \Exception("Cannot create Archive!");
+        }
+
+        return $this->file($filePath);
     }
 
     /**

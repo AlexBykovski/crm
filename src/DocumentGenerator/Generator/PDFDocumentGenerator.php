@@ -2,15 +2,12 @@
 
 namespace App\DocumentGenerator\Generator;
 
-
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\DocumentRequest;
+use DateTime;
 use FPDF;
 
 class PDFDocumentGenerator
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
     /** @var string */
     private $templateDir;
 
@@ -19,36 +16,25 @@ class PDFDocumentGenerator
 
     /**
      * DocDocumentGenerator constructor.
-     * @param EntityManagerInterface $em
      * @param string $templateDir
      * @param string $sourceDir
      */
-    public function __construct(EntityManagerInterface $em, $templateDir, $sourceDir)
+    public function __construct($templateDir, $sourceDir)
     {
-        $this->em = $em;
         $this->templateDir = $templateDir;
         $this->sourceDir = $sourceDir;
+        $this->createFolder($sourceDir);
     }
 
-    public function generate(array $ids)
+    public function generate(DocumentRequest $doc)
     {
-        $files = [];
+        $newFile = $this->sourceDir . $doc->getFio() . '_' . (new DateTime())->getTimestamp() . ".pdf";
 
-        foreach ($ids as $id)
-        {
-            $files[] = $this->generateSingle($id);
-        }
-
-        return $files;
-    }
-
-    private function generateSingle($id)
-    {
         $chars = str_split(strtoupper("test"));
 
         $pdf = new FPDF();
         $pdf->AddPage();
-        $pdf->Image($this->templateDir . '/../src/PDF/' . 'template_pdf_1.jpg', 0, 0, 210);
+        $pdf->Image($this->templateDir . 'template_pdf_1.jpg', 0, 0, 210);
         $pdf->SetFont('Arial','',8);
         $pdf->Cell(24);
 
@@ -58,7 +44,7 @@ class PDFDocumentGenerator
         }
 
         $pdf->AddPage();
-        $pdf->Image($this->templateDir . '/../src/PDF/' . 'template_pdf_2.jpg', 0, 0, 210);
+        $pdf->Image($this->templateDir . 'template_pdf_2.jpg', 0, 0, 210);
         $pdf->SetFont('Arial','',8);
         $pdf->Cell(24);
 
@@ -67,8 +53,20 @@ class PDFDocumentGenerator
             $pdf->Cell(3.41,80);
         }
 
-        $pdf->Output("file.pdf", 'D');
+        $pdf->Output($newFile, 'F');
 
-        return "file.pdf";
+        return $newFile;
+    }
+
+    public function getSource()
+    {
+        return $this->sourceDir;
+    }
+
+    private function createFolder($folder)
+    {
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777, true);
+        }
     }
 }

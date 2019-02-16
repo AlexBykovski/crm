@@ -1,22 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aleksander
- * Date: 02.02.19
- * Time: 0:16
- */
 
 namespace App\DocumentGenerator\Generator;
 
-
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\DocumentRequest;
+use DateTime;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class DocDocumentGenerator
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
     /** @var string */
     private $templateDir;
 
@@ -25,36 +16,37 @@ class DocDocumentGenerator
 
     /**
      * DocDocumentGenerator constructor.
-     * @param EntityManagerInterface $em
      * @param string $templateDir
      * @param string $sourceDir
      */
-    public function __construct(EntityManagerInterface $em, $templateDir, $sourceDir)
+    public function __construct($templateDir, $sourceDir)
     {
-        $this->em = $em;
         $this->templateDir = $templateDir;
         $this->sourceDir = $sourceDir;
+        $this->createFolder($sourceDir);
     }
 
-    public function generate(array $ids)
+    public function generate(DocumentRequest $doc)
     {
-        $files = [];
+        $newFile = $this->sourceDir . $doc->getFio() . '_' . (new DateTime())->getTimestamp() . ".docx";
 
-        foreach ($ids as $id)
-        {
-            $files[] = $this->generateSingle($id);
-        }
-
-        return $files;
-    }
-
-    private function generateSingle($id)
-    {
-        $templateProcessor = new TemplateProcessor($this->rootDir . 'template.docx');
+        $templateProcessor = new TemplateProcessor($this->templateDir . 'template.docx');
         $templateProcessor->setValue('date', date("d-m-Y"));
         $templateProcessor->setValue('name', 'John Doe');
-        $templateProcessor->saveAs('MyWordFile.docx');
+        $templateProcessor->saveAs($newFile);
 
-        return 'MyWordFile.docx';
+        return $newFile;
+    }
+
+    public function getSource()
+    {
+        return $this->sourceDir;
+    }
+
+    private function createFolder($folder)
+    {
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777, true);
+        }
     }
 }

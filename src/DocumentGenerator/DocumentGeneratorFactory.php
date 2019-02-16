@@ -7,7 +7,7 @@ use App\DocumentGenerator\Generator\PDFDocumentGenerator;
 
 class DocumentGeneratorFactory
 {
-    const RUSSIA = "Российская Федерация";
+    const RUSSIA = "Россия";
 
     /** @var DocDocumentGenerator */
     private $docGenerator;
@@ -27,6 +27,9 @@ class DocumentGeneratorFactory
         $this->pdfGenerator = $pdfGenerator;
     }
 
+    /**
+     * @return  DocDocumentGenerator|PDFDocumentGenerator
+     */
     public function factory($citizen)
     {
         switch ($citizen){
@@ -34,6 +37,16 @@ class DocumentGeneratorFactory
                 return $this->docGenerator;
             default:
                 return $this->pdfGenerator;
+        }
+    }
+
+    public function getSourceFolder($citizen)
+    {
+        switch ($citizen){
+            case self::RUSSIA:
+                return $this->docGenerator->getSource();
+            default:
+                return $this->pdfGenerator->getSource();
         }
     }
 }
