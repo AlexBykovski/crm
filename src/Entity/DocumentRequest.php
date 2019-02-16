@@ -102,6 +102,13 @@ class DocumentRequest
      *
      * @ORM\Column(type="string", nullable=true)
      */
+    private $series;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
     private $number;
 
     /**
@@ -334,6 +341,22 @@ class DocumentRequest
     public function setType(?string $type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSeries(): ?string
+    {
+        return $this->series;
+    }
+
+    /**
+     * @param null|string $series
+     */
+    public function setSeries(?string $series): void
+    {
+        $this->series = $series;
     }
 
     /**

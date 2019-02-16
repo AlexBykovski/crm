@@ -38,7 +38,7 @@ class DocumentDetail
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $bossLastName;
+    private $bossFio;
 
     /**
      * @var string|null
@@ -46,6 +46,34 @@ class DocumentDetail
      * @ORM\Column(type="string", nullable=true)
      */
     private $department;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $house;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $apartment;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $region;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $subway;
 
     /**
      * @var DocumentRequest
@@ -115,17 +143,17 @@ class DocumentDetail
     /**
      * @return null|string
      */
-    public function getBossLastName(): ?string
+    public function getBossFio(): ?string
     {
-        return $this->bossLastName;
+        return $this->bossFio;
     }
 
     /**
-     * @param null|string $bossLastName
+     * @param null|string $bossFio
      */
-    public function setBossLastName(?string $bossLastName): void
+    public function setBossFio(?string $bossFio): void
     {
-        $this->bossLastName = $bossLastName;
+        $this->bossFio = $bossFio;
     }
 
     /**
@@ -158,5 +186,69 @@ class DocumentDetail
     public function setDocumentRequest(DocumentRequest $documentRequest): void
     {
         $this->documentRequest = $documentRequest;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHouse(): ?string
+    {
+        return $this->house;
+    }
+
+    /**
+     * @param null|string $house
+     */
+    public function setHouse(?string $house): void
+    {
+        $this->house = $house;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getApartment(): ?string
+    {
+        return $this->apartment;
+    }
+
+    /**
+     * @param null|string $apartment
+     */
+    public function setApartment(?string $apartment): void
+    {
+        $this->apartment = $apartment;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param null|string $region
+     */
+    public function setRegion(?string $region): void
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSubway(): ?string
+    {
+        return $this->subway;
+    }
+
+    /**
+     * @param null|string $subway
+     */
+    public function setSubway(?string $subway): void
+    {
+        $this->subway = $subway;
     }
 }
