@@ -1,14 +1,20 @@
 <?php
 
 namespace App\Controller;
+use App\DocumentGenerator\DocumentsGenerator;
 use App\Entity\DocumentRequest;
 use App\Entity\Manager;
 use App\Form\DocumentRequestForm;
 use App\Form\SearchDocumentForm;
+use App\PDF\Pdf;
 use App\Provider\DocumentProvider;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use FPDF;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,6 +76,28 @@ class RequestController extends AbstractController
     }
 
     /**
+     * @Route("/download-document/{ids}", name="request_download_document")
+     */
+    public function downloadDocumentAction(Request $request, $ids)
+    {
+        /** @var DocumentsGenerator $documentsGenerator */
+        $documentsGenerator = $this->get("app.document_generator.documents_generator");
+        $parsedIds = explode(',', $ids);
+
+        if(!count($parsedIds)){
+            throw new \Exception("Incorrect ids : " . $ids);
+        }
+
+        $filePath = $documentsGenerator->generateDocuments($parsedIds);
+
+        if(!$filePath){
+            throw new \Exception("Cannot create Archive!");
+        }
+
+        return $this->file($filePath);
+    }
+
+    /**
      * @Route("/api/retrieve", name="request_api_retrieve")
      */
     public function retrieveRequestFromAPIAction(Request $request)
@@ -87,6 +115,7 @@ class RequestController extends AbstractController
             $birthDate = (new DateTime($request->request->get("birthDate"))) ? new DateTime($request->request->get("birthDate")) : null;
             $birthPlace = $request->request->get("birthPlace");
             $type = $request->request->get("type");
+            $series = $request->request->get("series");
             $number = $request->request->get("number");
             $issuedDate = (new DateTime($request->request->get("issuedDate"))) ? new DateTime($request->request->get("issuedDate")) : null;
             $issuedAuthority = $request->request->get("issuedAuthority");
@@ -94,7 +123,7 @@ class RequestController extends AbstractController
             $comment = $request->request->get("comment");
             $phone = $request->request->get("phone");
 
-            $documentRequest = new DocumentRequest($fio, $citizen, $birthDate, $birthPlace, $type, $number, $issuedDate,
+            $documentRequest = new DocumentRequest($fio, $citizen, $birthDate, $birthPlace, $type, $series, $number, $issuedDate,
                 $issuedAuthority, $term, $comment, $phone);
 
             $em->persist($documentRequest);
@@ -134,6 +163,7 @@ class RequestController extends AbstractController
 
         return $this->render('request/modal/edit-document-request.html.twig', [
             "form" => $form->createView(),
+            "doc" => $documentRequest,
         ]);
     }
 

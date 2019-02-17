@@ -1,7 +1,7 @@
 <!--Header-->
 <div class="modal-header">
     <p class="heading lead">Карточка клиента</p>
-    <button type="button" class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</button>
+    <a href="{{ path("request_download_document", {ids: doc.id}) }}" download class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</a>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative;">
         <span aria-hidden="true" class="white-text">&times;</span>
     </button>
@@ -35,24 +35,29 @@
         <!-- Grid row -->
         <div class="form-row">
             <!-- Default input -->
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 {{ form_label(form.issuedDate) }}
                 {{ form_widget(form.issuedDate, {attr: {"placeholder": "Введите дату выдачи", "class" : "form-control"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 {{ form_label(form.issuedAuthority) }}
                 {{ form_widget(form.issuedAuthority, {attr: {"placeholder": "Введите кем выдан документ", "class" : "form-control"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 {{ form_label(form.type) }}
                 {{ form_widget(form.type, {attr: {"class" : "form-control"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
+                {{ form_label(form.series) }}
+                {{ form_widget(form.series, {attr: {"placeholder": "Серия документа", "class" : "form-control"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-4">
                 {{ form_label(form.number) }}
-                {{ form_widget(form.number, {attr: {"placeholder": "Серия и номер документа", "class" : "form-control"}}) }}
+                {{ form_widget(form.number, {attr: {"placeholder": "Номер документа", "class" : "form-control"}}) }}
             </div>
         </div>
         <!-- Grid row -->
@@ -134,26 +139,44 @@
         <!-- Grid row -->
         <div class="form-row">
             <!-- Default input -->
-            <div class="form-group col-md-6">
+            <div id="document-address-street-container" class="form-group col-md-6">
                 {{ form_label(form.documentDetail.street) }}
-                {{ form_widget(form.documentDetail.street, {attr: {"placeholder": "Введите улицу", "class" : "form-control"}}) }}
+                {{ form_widget(form.documentDetail.street, {attr: {"placeholder": "Введите улицу", "class" : "form-control document-address-street"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-6">
+            <div id="document-address-district-container" class="form-group col-md-6">
                 {{ form_label(form.documentDetail.district) }}
-                {{ form_widget(form.documentDetail.district, {attr: {"placeholder": "Введите район", "class" : "form-control"}}) }}
+                {{ form_widget(form.documentDetail.district, {attr: {"placeholder": "Введите район", "class" : "form-control document-address-district"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-6">
-                {{ form_label(form.documentDetail.bossLastName) }}
-                {{ form_widget(form.documentDetail.bossLastName, {attr: {"placeholder": "Введите фамилию начальника", "class" : "form-control"}}) }}
-                <label for="inputZip">Фамилия начальника</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="Введите фамилию начальника">
+            <div id="document-address-fio-container" class="form-group col-md-6">
+                {{ form_label(form.documentDetail.bossFio) }}
+                {{ form_widget(form.documentDetail.bossFio, {attr: {"placeholder": "Введите ФИО начальника", "class" : "form-control document-address-fio"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-6">
+            <div id="document-address-department-container" class="form-group col-md-6">
                 {{ form_label(form.documentDetail.department) }}
-                {{ form_widget(form.documentDetail.department, {attr: {"placeholder": "Отделение и номер", "class" : "form-control"}}) }}
+                {{ form_widget(form.documentDetail.department, {attr: {"placeholder": "Отделение УФМС", "class" : "form-control document-address-department"}}) }}
+            </div>
+            <!-- Default input -->
+            <div id="document-address-house-container" class="form-group col-md-6">
+                {{ form_label(form.documentDetail.house) }}
+                {{ form_widget(form.documentDetail.house, {attr: {"placeholder": "Введите дом", "class" : "form-control document-address-house"}}) }}
+            </div>
+            <!-- Default input -->
+            <div id="document-address-apartment-container" class="form-group col-md-6">
+                {{ form_label(form.documentDetail.apartment) }}
+                {{ form_widget(form.documentDetail.apartment, {attr: {"placeholder": "Введите квартиру", "class" : "form-control document-address-apartment"}}) }}
+            </div>
+            <!-- Default input -->
+            <div id="document-address-region-container" class="form-group col-md-6">
+                {{ form_label(form.documentDetail.region) }}
+                {{ form_widget(form.documentDetail.region, {attr: {"placeholder": "Введите округ", "class" : "form-control document-address-region"}}) }}
+            </div>
+            <!-- Default input -->
+            <div id="document-address-subway-container" class="form-group col-md-6">
+                {{ form_label(form.documentDetail.subway) }}
+                {{ form_widget(form.documentDetail.subway, {attr: {"placeholder": "Введите ближайшее метро", "class" : "form-control document-address-subway"}}) }}
             </div>
         </div>
         <!-- Grid row -->

@@ -32,13 +32,29 @@ class DocumentDetailForm extends AbstractType
                 'required' => false,
                 'label' => "Район",
             ])
-            ->add('bossLastName', TextType::class, [
+            ->add('bossFio', TextType::class, [
                 'required' => false,
-                'label' => "Фамилия начальника",
+                'label' => "ФИО начальника",
             ])
             ->add('department', TextType::class, [
                 'required' => false,
-                'label' => "Отделение",
+                'label' => "Отдел УФМС",
+            ])
+            ->add('house', TextType::class, [
+                'required' => false,
+                'label' => "Дом",
+            ])
+            ->add('apartment', TextType::class, [
+                'required' => false,
+                'label' => "Квартира",
+            ])
+            ->add('region', TextType::class, [
+                'required' => false,
+                'label' => "Округ",
+            ])
+            ->add('subway', TextType::class, [
+                'required' => false,
+                'label' => "Ближайшее метро",
             ])
         ;
     }

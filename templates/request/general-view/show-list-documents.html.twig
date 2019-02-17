@@ -1,0 +1,80 @@
+<!-- Central Modal Large Info-->
+<div class="modal fade" id="centralModalLGRequestMain" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- Central Modal Large Info-->
+
+
+{% for date, groupDocRequest in docRequests %}
+    {% set ids = '' %}
+    {% for doc in groupDocRequest %}
+        {% set ids = ids == '' ? doc.id : ids ~ ',' ~ doc.id %}
+    {% endfor %}
+
+    <!--Grid row-->
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+            <!--Card-->
+            <div class="card">
+
+                <!--Card content-->
+                <div class="card-body">
+                    <h2 class="mb-2">{{ date }}</h2>
+                    <a href="{{ path("request_download_document", {ids: ids}) }}" download class="btn btn-outline-secondary waves-effect some_btn_rise">Печать</a>
+                    <!-- Table  -->
+                    <table class="table table-hover main_table">
+                        <!-- Table head -->
+                        <thead class="blue-grey lighten-4">
+                        <tr>
+                            <th>Номер сделки</th>
+                            <th>Контакт</th>
+                            <th>Телефон</th>
+                            <th>Срок</th>
+                            <th>Сумма</th>
+                            <th>Этап сделки</th>
+                            <th>Тип</th>
+                            <th>Примечание</th>
+                        </tr>
+                        </thead>
+                        <!-- Table head -->
+
+                        <!-- Table body -->
+                        <tbody>
+                        {% for doc in groupDocRequest %}
+                            <tr>
+                                <td><a class="{{ not app.user.hasRole('ROLE_PRINTER') ? "n_sd link-to-edit-document-request" : "" }}" data-id="{{ doc.id }}">Заявка №{{ doc.id }}</a></td>
+                                <td>{{ doc.fio }}</td>
+                                <td>{{ doc.phone }}</td>
+                                <td>{{ doc.getRegistrationTerm() }}</td>
+                                <td>{{ doc.budget }}</td>
+                                <td><button type="button" class="btn btn-red">{{ doc.getViewStatus() }}</button></td>
+                                <td>{{ doc.type }}</td>
+                                <td>{{ doc.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <!-- Table body -->
+                    </table>
+                    <!-- Table  -->
+
+                </div>
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+{% endfor %}

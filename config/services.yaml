@@ -21,12 +21,37 @@ services:
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
+#        resource: '../src/Controller'
+#        tags: ['controller.service_arguments']
         resource: '../src/Controller'
+        public: true
         tags: ['controller.service_arguments']
+        calls:
+            - [setContainer, ["@service_container"]]
 
     app.provider.document_provider:
         class: App\Provider\DocumentProvider
         arguments: ['@doctrine.orm.default_entity_manager']
+        public: true
+
+    app.document_generator.generator.doc_document_generator:
+        class: App\DocumentGenerator\Generator\DocDocumentGenerator
+        arguments: ['%kernel.project_dir%/src/DocumentGenerator/Template/', '%kernel.project_dir%/var/tmp/docs/']
+        public: true
+
+    app.document_generator.generator.pdf_document_generator:
+        class: App\DocumentGenerator\Generator\PDFDocumentGenerator
+        arguments: ['%kernel.project_dir%/src/DocumentGenerator/Template/', '%kernel.project_dir%/var/tmp/pdfs/']
+        public: true
+
+    app.document_generator.document_generator_factory:
+        class: App\DocumentGenerator\DocumentGeneratorFactory
+        arguments: ['@app.document_generator.generator.doc_document_generator', '@app.document_generator.generator.pdf_document_generator']
+        public: true
+
+    app.document_generator.documents_generator:
+        class: App\DocumentGenerator\DocumentsGenerator
+        arguments: ['@app.document_generator.document_generator_factory', '@doctrine.orm.default_entity_manager', '%kernel.project_dir%/var/tmp/results/']
         public: true
 
 fos_user:

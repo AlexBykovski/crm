@@ -1,0 +1,32 @@
+﻿[
+  {
+    "street" : "Генерала Кузнецова",
+    "house" : "18",
+    "apartment" : "14",
+    "district" : "Выхино-Жулебино",
+    "region" : "ЮВАО",
+    "department" : "ОВМ ОМВД России по району Выхино-Жулебино",
+    "fio" : "Кишневская М.Г.",
+    "subway" : "Жулебино"
+  },
+  {
+    "street" : "test",
+    "house" : "test",
+    "apartment" : "test",
+    "district" : "test",
+    "region" : "test",
+    "department" : "test",
+    "fio" : "test",
+    "subway" : "test"
+  },
+  {
+    "street" : "Андрея Попова",
+    "house" : "2182",
+    "apartment" : "14",
+    "district" : "Кулебино",
+    "region" : "НИВАО",
+    "department" : "России по району Выхино-Жулебино",
+    "fio" : "Гишневская М.Г.",
+    "subway" : "Мулебино"
+  }
+]

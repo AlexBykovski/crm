@@ -53,9 +53,13 @@ class DocumentRequestForm extends AbstractType
                 'label' => "Документ",
                 'choices' => $this->getTypeChoices(),
             ])
+            ->add('series', TextType::class, [
+                'required' => false,
+                'label' => "Серия документа",
+            ])
             ->add('number', TextType::class, [
                 'required' => false,
-                'label' => "Серия и номер документа",
+                'label' => "Номер документа",
             ])
             ->add('citizen', ChoiceType::class, [
                 'required' => false,

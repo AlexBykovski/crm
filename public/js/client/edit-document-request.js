@@ -44,10 +44,12 @@ $(document).ready(function(){
         $.ajax( parameters )
             .done(function(response) {
                 if(response && response.success && response.redirectUrl){
-                    return window.location.href = response.redirectUrl;
+                    return $("#form-filter-search").find("button[type=submit]").click();
                 }
 
                 modal.find(".modal-content").html(response);
+
+                addAutocomplete();
 
                 if(!modal.is(':visible')){
                     modal.modal("show");
@@ -84,5 +86,53 @@ $(document).ready(function(){
             $("#document_request_form_budget").val(term);
             registerTo.val(moment(registerFrom.val()).add(DATE_END_ADD[value]).format("YYYY-MM-DD"));
         });
+    }
+
+    function addAutocomplete(){
+        $.getJSON( "/json/department-addresses.json", function(json){
+            setAutocomplete(json, 'street');
+            setAutocomplete(json, 'district');
+            setAutocomplete(json, 'fio');
+            setAutocomplete(json, 'department');
+            setAutocomplete(json, 'house');
+            setAutocomplete(json, 'apartment');
+            setAutocomplete(json, 'region');
+            setAutocomplete(json, 'subway');
+        });
+    }
+
+    function setAutocomplete(addressesAutocomplete, type) {
+        $( ".document-address-" + type ).autocomplete({
+            minLength: 1,
+            source: [],
+            focus: function( event, ui ) {
+                return false;
+            },
+            select: function( event, ui ) {
+                $( ".document-address-street" ).val( ui.item.street );
+                $( ".document-address-district" ).val( ui.item.district );
+                $( ".document-address-fio" ).val( ui.item.fio );
+                $( ".document-address-department" ).val( ui.item.department );
+                $( ".document-address-house" ).val( ui.item.house );
+                $( ".document-address-apartment" ).val( ui.item.apartment );
+                $( ".document-address-region" ).val( ui.item.region );
+                $( ".document-address-subway" ).val( ui.item.subway );
+
+                return false;
+            },
+            appendTo: "#document-address-" + type + "-container",
+            search: function () {
+                $(this).autocomplete( 'option', 'source', $.map(addressesAutocomplete, function (value, key) {
+                    value["value"] = value[type];
+
+                    return value;
+                }) );
+            }
+        })
+            .autocomplete( "instance" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .append( "<div>" + item[type] + "</div>" )
+                .appendTo( ul );
+        };
     }
 });

@@ -51,12 +51,14 @@ class DocumentRequest
         DocumentRequest::STATUS_PRINTED => "Распечатано",
         DocumentRequest::STATUS_COURIER => "Курьер",
         DocumentRequest::STATUS_REJECT => "Отказ",
+        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
     ];
 
     const LOGISTICIAN_STATUSES = [
         DocumentRequest::STATUS_TRANSPOSITION => "Перенос",
         DocumentRequest::STATUS_PAYMENT => "Оплата",
         DocumentRequest::STATUS_REJECT => "Отказ",
+        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
     ];
 
     const STATUS_NOT_HANDLED = "STATUS_NOT_HANDLED";
@@ -111,6 +113,13 @@ class DocumentRequest
      * @ORM\Column(type="string", nullable=true)
      */
     private $type;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $series;
 
     /**
      * @var string|null
@@ -228,6 +237,7 @@ class DocumentRequest
      * @param DateTime|null $birthDate
      * @param null|string $birthPlace
      * @param null|string $type
+     * @param null|string $series
      * @param null|string $number
      * @param DateTime|null $issuedDate
      * @param null|string $issuedAuthority
@@ -237,13 +247,16 @@ class DocumentRequest
      *
      * @throws \Exception
      */
-    public function __construct(?string $fio, ?string $citizen, ?DateTime $birthDate, ?string $birthPlace, ?string $type, ?string $number, ?DateTime $issuedDate, ?string $issuedAuthority, ?string $term, ?string $comment, ?string $phone)
+    public function __construct(?string $fio, ?string $citizen, ?DateTime $birthDate, ?string $birthPlace,
+                                ?string $type, ?string $series, ?string $number, ?DateTime $issuedDate,
+                                ?string $issuedAuthority, ?string $term, ?string $comment, ?string $phone)
     {
         $this->fio = $fio;
         $this->citizen = $citizen;
         $this->birthDate = $birthDate;
         $this->birthPlace = $birthPlace;
         $this->type = $type;
+        $this->series = $series;
         $this->number = $number;
         $this->issuedDate = $issuedDate;
         $this->issuedAuthority = $issuedAuthority;
@@ -360,6 +373,22 @@ class DocumentRequest
     public function setType(?string $type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSeries(): ?string
+    {
+        return $this->series;
+    }
+
+    /**
+     * @param null|string $series
+     */
+    public function setSeries(?string $series): void
+    {
+        $this->series = $series;
     }
 
     /**

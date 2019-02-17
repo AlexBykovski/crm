@@ -21,7 +21,7 @@ class Printer extends User
     {
         $statuses = array_keys(DocumentRequest::PRINTER_STATUSES);
 
-        $statuses[] = DocumentRequest::STATUS_MOVE_TO_PRINT;
+//        $statuses[] = DocumentRequest::STATUS_MOVE_TO_PRINT;
 
         return $statuses;
     }
