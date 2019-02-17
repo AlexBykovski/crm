@@ -51,12 +51,14 @@ class DocumentRequest
         DocumentRequest::STATUS_PRINTED => "Распечатано",
         DocumentRequest::STATUS_COURIER => "Курьер",
         DocumentRequest::STATUS_REJECT => "Отказ",
+        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
     ];
 
     const LOGISTICIAN_STATUSES = [
         DocumentRequest::STATUS_TRANSPOSITION => "Перенос",
         DocumentRequest::STATUS_PAYMENT => "Оплата",
         DocumentRequest::STATUS_REJECT => "Отказ",
+        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
     ];
 
     const STATUS_NOT_HANDLED = "STATUS_NOT_HANDLED";

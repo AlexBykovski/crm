@@ -21,7 +21,7 @@ class Logistician extends User
     {
         $statuses = array_keys(DocumentRequest::LOGISTICIAN_STATUSES);
 
-        $statuses[] = DocumentRequest::STATUS_MOVE_TO_PRINT;
+        //$statuses[] = DocumentRequest::STATUS_MOVE_TO_PRINT;
 
         return $statuses;
     }
