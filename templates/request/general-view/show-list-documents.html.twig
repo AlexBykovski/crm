@@ -55,7 +55,7 @@
                                 <td><a class="{{ not app.user.hasRole('ROLE_PRINTER') ? "n_sd link-to-edit-document-request" : "" }}" data-id="{{ doc.id }}">Заявка №{{ doc.id }}</a></td>
                                 <td>{{ doc.fio }}</td>
                                 <td>{{ doc.phone }}</td>
-                                <td>{{ doc.term }}</td>
+                                <td>{{ doc.getRegistrationTerm() }}</td>
                                 <td>{{ doc.budget }}</td>
                                 <td><button type="button" class="btn btn-red">{{ doc.getViewStatus() }}</button></td>
                                 <td>{{ doc.type }}</td>

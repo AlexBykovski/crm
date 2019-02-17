@@ -3,10 +3,12 @@
 namespace App\Controller;
 use App\DocumentGenerator\DocumentsGenerator;
 use App\Entity\DocumentRequest;
+use App\Entity\Manager;
 use App\Form\DocumentRequestForm;
 use App\Form\SearchDocumentForm;
 use App\PDF\Pdf;
 use App\Provider\DocumentProvider;
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use FPDF;
@@ -113,6 +115,7 @@ class RequestController extends AbstractController
             $birthDate = (new DateTime($request->request->get("birthDate"))) ? new DateTime($request->request->get("birthDate")) : null;
             $birthPlace = $request->request->get("birthPlace");
             $type = $request->request->get("type");
+            $series = $request->request->get("series");
             $number = $request->request->get("number");
             $issuedDate = (new DateTime($request->request->get("issuedDate"))) ? new DateTime($request->request->get("issuedDate")) : null;
             $issuedAuthority = $request->request->get("issuedAuthority");
@@ -120,7 +123,7 @@ class RequestController extends AbstractController
             $comment = $request->request->get("comment");
             $phone = $request->request->get("phone");
 
-            $documentRequest = new DocumentRequest($fio, $citizen, $birthDate, $birthPlace, $type, $number, $issuedDate,
+            $documentRequest = new DocumentRequest($fio, $citizen, $birthDate, $birthPlace, $type, $series, $number, $issuedDate,
                 $issuedAuthority, $term, $comment, $phone);
 
             $em->persist($documentRequest);
@@ -162,5 +165,52 @@ class RequestController extends AbstractController
             "form" => $form->createView(),
             "doc" => $documentRequest,
         ]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_MANAGER')")
+     *
+     * @Route("/work-manager/", name="work_manager_request")
+     * @throws \Exception
+     */
+    public function workManagerAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Manager $manager */
+        $manager = $this->getUser();
+        /** @var DateTime $workedAt */
+        $workedAt = $manager->getWorkUpdatedAt();
+        $cloneWorkedAt = clone $workedAt;
+        $cloneWorkedAt->add(new DateInterval('P5D'));
+        $now = new DateTime();
+
+        if($cloneWorkedAt->format("Y-m-d") < $now->format("Y-m-d")){
+            $manager->setWorkUpdatedAt($now);
+            $em->flush();
+
+            return new JsonResponse(["success" => true]);
+        }
+
+        if($workedAt->format("Y-m-d") === $now->format("Y-m-d")){
+            return new JsonResponse(["success" => false, "message" => "Вы уже работаете"]);
+        }
+
+        $dayStart = new DateTime();
+        $dayStart->sub(new DateInterval('P5D'));
+        $dayStart->setTime(0,0,0);
+        $workedAt->setTime(23, 59, 59);
+
+        $countUnhandledDocuments = (int)$em->getRepository(DocumentRequest::class)
+            ->findCountBetweenDates($dayStart, $workedAt, [DocumentRequest::STATUS_NOT_HANDLED])[0]["count"];
+
+        if(!$countUnhandledDocuments){
+            $manager->setWorkUpdatedAt($now);
+            $em->flush();
+
+            return new JsonResponse(["success" => true]);
+        }
+
+        return new JsonResponse(["success" => false, "message" => "Количество необработанных заявок: " . $countUnhandledDocuments]);
     }
 }

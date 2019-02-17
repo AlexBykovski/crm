@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,6 +13,20 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DocumentRequest
 {
+    const BUDGET = [
+        "3 месяца" => "2000",
+        "1 год" => "2500",
+        "3 года" => "3500",
+        "5 лет" => "4500",
+    ];
+
+    const END_REGISTRATION = [
+        "3 месяца" => "P3M",
+        "1 год" => "P1Y",
+        "3 года" => "P3Y",
+        "5 лет" => "P5Y",
+    ];
+
     const STATUSES_VIEW = [
         self::STATUS_NOT_HANDLED => "Не обработана",
         self::STATUS_CONFIRM_REQUEST_DELIVERY => "Подтверждение заказа и доставки",
@@ -220,20 +235,26 @@ class DocumentRequest
      * @param DateTime|null $birthDate
      * @param null|string $birthPlace
      * @param null|string $type
+     * @param null|string $series
      * @param null|string $number
      * @param DateTime|null $issuedDate
      * @param null|string $issuedAuthority
      * @param null|string $term
      * @param null|string $comment
      * @param null|string $phone
+     *
+     * @throws \Exception
      */
-    public function __construct(?string $fio, ?string $citizen, ?DateTime $birthDate, ?string $birthPlace, ?string $type, ?string $number, ?DateTime $issuedDate, ?string $issuedAuthority, ?string $term, ?string $comment, ?string $phone)
+    public function __construct(?string $fio, ?string $citizen, ?DateTime $birthDate, ?string $birthPlace,
+                                ?string $type, ?string $series, ?string $number, ?DateTime $issuedDate,
+                                ?string $issuedAuthority, ?string $term, ?string $comment, ?string $phone)
     {
         $this->fio = $fio;
         $this->citizen = $citizen;
         $this->birthDate = $birthDate;
         $this->birthPlace = $birthPlace;
         $this->type = $type;
+        $this->series = $series;
         $this->number = $number;
         $this->issuedDate = $issuedDate;
         $this->issuedAuthority = $issuedAuthority;
@@ -242,6 +263,15 @@ class DocumentRequest
         $this->phone = $phone;
         $this->status = self::STATUS_NOT_HANDLED;
         $this->createdAt = new DateTime();
+
+        if(array_key_exists($term, self::BUDGET)){
+            $this->budget = self::BUDGET[$term];
+
+            $this->registerFrom = new DateTime();
+            $this->registerTo = new DateTime();
+            $this->registerFrom->add(new DateInterval("P1D"));
+            $this->registerTo->add(new DateInterval(self::END_REGISTRATION[$term]));
+        }
 
         $this->deliveryDetail = new DeliveryDetail($this);
         $this->documentDetail = new DocumentDetail($this);
@@ -605,5 +635,14 @@ class DocumentRequest
     public function getViewStatus()
     {
         return self::STATUSES_VIEW[$this->status];
+    }
+
+    public function getRegistrationTerm()
+    {
+        if(!$this->isBackDating || !$this->registerFrom || !$this->registerTo){
+            return $this->term;
+        }
+
+        return $this->registerFrom->format("d.m.Y") . ' - ' . $this->registerTo->format("d.m.Y");
     }
 }
