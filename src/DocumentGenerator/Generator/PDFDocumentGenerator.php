@@ -36,22 +36,18 @@ class PDFDocumentGenerator
         $pdf->AddPage();
         $pdf->Image($this->templateDir . 'template_pdf_1.jpg', 0, 0, 210);
         $pdf->SetFont('Arial','',8);
-        $pdf->Cell(24);
 
-        foreach ($chars as $index => $char){
-            $pdf->Cell(1,80,$char);
-            $pdf->Cell(3.41,80);
-        }
+        $pdf = $this->setFio($pdf, $doc->getFio());
 
         $pdf->AddPage();
         $pdf->Image($this->templateDir . 'template_pdf_2.jpg', 0, 0, 210);
         $pdf->SetFont('Arial','',8);
-        $pdf->Cell(24);
+        //$pdf->Cell(24);
 
-        foreach ($chars as $index => $char){
-            $pdf->Cell(1,80,$char);
-            $pdf->Cell(3.41,80);
-        }
+//        foreach ($chars as $index => $char){
+//            $pdf->Cell(1,80,$char);
+//            $pdf->Cell(3.41,80);
+//        }
 
         $pdf->Output($newFile, 'F');
 
@@ -61,6 +57,35 @@ class PDFDocumentGenerator
     public function getSource()
     {
         return $this->sourceDir;
+    }
+
+    private function setFio(FPDF $pdf, $fio)
+    {
+        $fio = preg_split("/[\s]+/", $fio);
+
+        if(!count($fio)){
+            return $pdf;
+        }
+
+        $line1 = strtoupper(count($fio) > 1 ? $fio[0] . ' ' . $fio[1] : $fio[0]);
+        $line2 = "";
+
+        $line1 = json_encode($line1, JSON_UNESCAPED_UNICODE);
+
+        for ($i = 2; $i < count($fio); $i++){
+            $line2 .= $fio[$i] . ' ';
+        }
+
+        $line2 = strtoupper(trim($line2));
+
+        $pdf->Cell(24);
+
+        foreach (str_split($line1) as $index => $char){
+            $pdf->Cell(1,80, $char);
+            $pdf->Cell(3.41,80);
+        }
+
+        return $pdf;
     }
 
     private function createFolder($folder)

@@ -29,6 +29,25 @@ class DocDocumentGenerator
     public function generate(DocumentRequest $doc)
     {
         $newFile = $this->sourceDir . $doc->getFio() . '_' . (new DateTime())->getTimestamp() . ".docx";
+        //${randomNumber}
+        //${fio}
+        //${dateBirth}
+        //${placeBirth}
+        //${dayFrom}
+        //${monthFrom}
+        //${yearFrom}
+        //${dayTo}
+        //${monthTo}
+        //${yearTo}
+        //${docType}
+        //${series}
+        //${number}
+        //${dayIssued}
+        //${monthIssued}
+        //${yearIssued}
+        //${issuedAuthority}
+        //${department}
+        //${bossFio}
 
         $templateProcessor = new TemplateProcessor($this->templateDir . 'template.docx');
         $templateProcessor->setValue('date', date("d-m-Y"));
