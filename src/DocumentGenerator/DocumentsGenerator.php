@@ -56,6 +56,7 @@ class DocumentsGenerator
         if(($resultOpen = $zip->open($this->source . $archiveName, ZIPARCHIVE::CREATE)) !== true){
             var_dump($resultOpen);die;
         }
+        var_dump($resultOpen);
         $zip->close();
         die;
 
