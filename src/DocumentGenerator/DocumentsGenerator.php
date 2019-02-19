@@ -53,7 +53,9 @@ class DocumentsGenerator
         }
 
         $zip = new ZipArchive();
-        $zip->open($this->source . $archiveName, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE);
+        if(($resultOpen = $zip->open($this->source . $archiveName, ZIPARCHIVE::CREATE)) !== true){
+            var_dump($resultOpen);die;
+        }
 
         foreach ($ids as $id)
         {
