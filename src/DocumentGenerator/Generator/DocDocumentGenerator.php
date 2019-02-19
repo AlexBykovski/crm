@@ -64,6 +64,8 @@ class DocDocumentGenerator
 
     private function createFolder($folder)
     {
+        $folder = rtrim($folder, '/');
+
         if (!file_exists($folder)) {
             mkdir($folder, 0777, true);
         }
