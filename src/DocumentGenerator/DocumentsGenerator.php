@@ -65,6 +65,8 @@ class DocumentsGenerator
 
             $generator = $this->generatorFactory->factory($doc->getCitizen());
             $filePath = $generator->generate($doc);
+
+            //return $filePath;
             $fileName = str_replace($this->generatorFactory->getSourceFolder($doc->getCitizen()), "", $filePath);
 
             $zip->addFile($filePath, $fileName);

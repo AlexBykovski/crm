@@ -61,6 +61,10 @@ class DocumentRequestForm extends AbstractType
                 'required' => false,
                 'label' => "Номер документа",
             ])
+            ->add('sex', CheckboxType::class, [
+                'required' => false,
+                'label' => "Мужской пол",
+            ])
             ->add('citizen', ChoiceType::class, [
                 'required' => false,
                 'label' => "Гражданство",
