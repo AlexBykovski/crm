@@ -57,6 +57,7 @@ class DocumentsGenerator
             var_dump($resultOpen);die;
         }
         $zip->close();
+        die;
 
         foreach ($ids as $id)
         {
