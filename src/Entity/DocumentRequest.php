@@ -213,6 +213,13 @@ class DocumentRequest
     private $registerTo;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $sex = 0;
+
+    /**
      * @Assert\Valid()
      *
      * @var DeliveryDetail
@@ -597,6 +604,22 @@ class DocumentRequest
     public function setRegisterTo(?DateTime $registerTo): void
     {
         $this->registerTo = $registerTo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSex(): bool
+    {
+        return $this->sex;
+    }
+
+    /**
+     * @param bool $sex
+     */
+    public function setSex(bool $sex): void
+    {
+        $this->sex = $sex;
     }
 
     /**

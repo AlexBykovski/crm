@@ -1,4 +1,7 @@
 {
+    "docnet/tfpdf": {
+        "version": "v2.2.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

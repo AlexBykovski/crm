@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bdc0ffa485076079268f415b6bad5af",
+    "content-hash": "2ff286febc7e56f1c7b5e534cb728a8d",
     "packages": [
+        {
+            "name": "docnet/tfpdf",
+            "version": "v2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DocnetUK/tfpdf.git",
+                "reference": "e2809ce7da5f3f9c77ec9cdf1e0704882fe012ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DocnetUK/tfpdf/zipball/e2809ce7da5f3f9c77ec9cdf1e0704882fe012ba",
+                "reference": "e2809ce7da5f3f9c77ec9cdf1e0704882fe012ba",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">= 5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tFPDF\\": "src/tFPDF/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Back",
+                    "email": "ianb@bpm1.com"
+                },
+                {
+                    "name": "Dave Blencowe",
+                    "email": "dblencowe@gmail.com"
+                },
+                {
+                    "name": "David Wilcock",
+                    "email": "dwilcock@doc-net.com"
+                }
+            ],
+            "description": "tfpdf",
+            "homepage": "http://github.com/DocnetUK/tfpdf",
+            "keywords": [
+                "pdf"
+            ],
+            "time": "2019-01-21T10:55:00+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.6.0",
