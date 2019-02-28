@@ -29,29 +29,45 @@ class DocDocumentGenerator
     public function generate(DocumentRequest $doc)
     {
         $newFile = $this->sourceDir . $doc->getFio() . '_' . (new DateTime())->getTimestamp() . ".docx";
-        //${randomNumber}
-        //${fio}
-        //${dateBirth}
-        //${placeBirth}
-        //${dayFrom}
-        //${monthFrom}
-        //${yearFrom}
-        //${dayTo}
-        //${monthTo}
-        //${yearTo}
-        //${docType}
-        //${series}
-        //${number}
-        //${dayIssued}
-        //${monthIssued}
-        //${yearIssued}
-        //${issuedAuthority}
-        //${department}
-        //${bossFio}
+
+        $birthDate = $doc->getBirthDate() ? $doc->getBirthDate()->format("d.m.Y") : "";
+
+        $dayFrom = $doc->getRegisterFrom() ? $doc->getRegisterFrom()->format("d") : "";
+        $monthFrom = $doc->getRegisterFrom() ? $doc->getRegisterFrom()->format("m") : "";
+        $yearFrom = $doc->getRegisterFrom() ? $doc->getRegisterFrom()->format("Y") : "";
+
+        $dayTo = $doc->getRegisterTo() ? $doc->getRegisterTo()->format("d") : "";
+        $monthTo = $doc->getRegisterTo() ? $doc->getRegisterTo()->format("m") : "";
+        $yearTo = $doc->getRegisterTo() ? $doc->getRegisterTo()->format("Y") : "";
+
+        $dayIssued = $doc->getIssuedDate() ? $doc->getIssuedDate()->format("d") : "";
+        $monthIssued = $doc->getIssuedDate() ? $doc->getIssuedDate()->format("m") : "";
+        $yearIssued = $doc->getIssuedDate() ? $doc->getIssuedDate()->format("Y") : "";
 
         $templateProcessor = new TemplateProcessor($this->templateDir . 'template.docx');
-        $templateProcessor->setValue('date', date("d-m-Y"));
-        $templateProcessor->setValue('name', 'John Doe');
+        $templateProcessor->setValue('randomNumber', rand(1000, 9999));
+        $templateProcessor->setValue('fio', $doc->getFio());
+        $templateProcessor->setValue('dateBirth', $birthDate);
+        $templateProcessor->setValue('placeBirth', $doc->getBirthPlace());
+        $templateProcessor->setValue('dayFrom', $dayFrom);
+        $templateProcessor->setValue('monthFrom', $monthFrom);
+        $templateProcessor->setValue('yearFrom', $yearFrom);
+        $templateProcessor->setValue('dayTo', $dayTo);
+        $templateProcessor->setValue('monthTo', $monthTo);
+        $templateProcessor->setValue('yearTo', $yearTo);
+        $templateProcessor->setValue('docType', $doc->getType());
+        $templateProcessor->setValue('series', $doc->getSeries());
+        $templateProcessor->setValue('number', $doc->getNumber());
+        $templateProcessor->setValue('dayIssued', $dayIssued);
+        $templateProcessor->setValue('monthIssued', $monthIssued);
+        $templateProcessor->setValue('yearIssued', $yearIssued);
+        $templateProcessor->setValue('issuedAuthority', $doc->getIssuedAuthority());
+        $templateProcessor->setValue('department', $doc->getDocumentDetail()->getDepartment());
+        $templateProcessor->setValue('bossFio', $doc->getDocumentDetail()->getBossFio());
+        $templateProcessor->setValue('district', $doc->getDocumentDetail()->getDistrict());
+        $templateProcessor->setValue('street', $doc->getDocumentDetail()->getStreet());
+        $templateProcessor->setValue('house', $doc->getDocumentDetail()->getHouse());
+        $templateProcessor->setValue('apartment', $doc->getDocumentDetail()->getApartment());
         $templateProcessor->saveAs($newFile);
 
         return $newFile;
