@@ -37,28 +37,40 @@ class DocumentRequest
         self::STATUS_COURIER => "Курьер",
         self::STATUS_TRANSPOSITION => "Перенос",
         self::STATUS_PAYMENT => "Оплата",
+        self::STATUS_REFUSE_READY => "Отказ от готового",
+        self::STATUS_PAYED_READY => "Оплатил готовое",
+        self::STATUS_TRASH => "Мусор",
     ];
 
     const MANAGER_STATUSES = [
-        DocumentRequest::STATUS_NOT_HANDLED => "Не обработана",
-        DocumentRequest::STATUS_CONFIRM_REQUEST_DELIVERY => "Подтверждение заказа и доставки",
-        DocumentRequest::STATUS_PREPARE_DOCUMENTS => "Подготовка документов",
-        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
-        DocumentRequest::STATUS_REJECT => "Отказ",
+        self::STATUS_NOT_HANDLED => "Не обработана",
+        self::STATUS_CONFIRM_REQUEST_DELIVERY => "Подтверждение заказа и доставки",
+        self::STATUS_PREPARE_DOCUMENTS => "Подготовка документов",
+        self::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        self::STATUS_REJECT => "Отказ",
+        self::STATUS_REFUSE_READY => "Отказ от готового",
+        self::STATUS_PAYED_READY => "Оплатил готовое",
+        self::STATUS_TRASH => "Мусор",
     ];
 
     const PRINTER_STATUSES = [
-        DocumentRequest::STATUS_PRINTED => "Распечатано",
-        DocumentRequest::STATUS_COURIER => "Курьер",
-        DocumentRequest::STATUS_REJECT => "Отказ",
-        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        self::STATUS_PRINTED => "Распечатано",
+        self::STATUS_COURIER => "Курьер",
+        self::STATUS_REJECT => "Отказ",
+        self::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        self::STATUS_REFUSE_READY => "Отказ от готового",
+        self::STATUS_PAYED_READY => "Оплатил готовое",
+        self::STATUS_TRASH => "Мусор",
     ];
 
     const LOGISTICIAN_STATUSES = [
-        DocumentRequest::STATUS_TRANSPOSITION => "Перенос",
-        DocumentRequest::STATUS_PAYMENT => "Оплата",
-        DocumentRequest::STATUS_REJECT => "Отказ",
-        DocumentRequest::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        self::STATUS_TRANSPOSITION => "Перенос",
+        self::STATUS_PAYMENT => "Оплата",
+        self::STATUS_REJECT => "Отказ",
+        self::STATUS_MOVE_TO_PRINT => "Отправил на распечатку",
+        self::STATUS_REFUSE_READY => "Отказ от готового",
+        self::STATUS_PAYED_READY => "Оплатил готовое",
+        self::STATUS_TRASH => "Мусор",
     ];
 
     const STATUS_NOT_HANDLED = "STATUS_NOT_HANDLED";
@@ -70,6 +82,9 @@ class DocumentRequest
     const STATUS_COURIER = "STATUS_COURIER";
     const STATUS_TRANSPOSITION = "STATUS_TRANSPOSITION";
     const STATUS_PAYMENT = "STATUS_PAYMENT";
+    const STATUS_REFUSE_READY = "STATUS_REFUSE_READY";
+    const STATUS_PAYED_READY = "STATUS_PAYED_READY";
+    const STATUS_TRASH = "STATUS_TRASH";
 
     /**
      * @var integer|null
