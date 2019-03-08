@@ -60,9 +60,14 @@
                 {{ form_widget(form.number, {attr: {"placeholder": "Номер документа", "class" : "form-control"}}) }}
             </div>
             <!-- Default input -->
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-2">
                 {{ form_label(form.sex) }}
-                {{ form_widget(form.sex, {attr: {"class" : "form-control"}}) }}
+                {{ form_widget(form.sex, {attr: {"class" : "form-control only-one-checkbox"}}) }}
+            </div>
+            <!-- Default input -->
+            <div class="form-group col-md-2">
+                <label for="document_request_form_sex_woman">Женский пол</label>
+                <input type="checkbox" id="document_request_form_sex_woman" class="form-control only-one-checkbox" value="1">
             </div>
         </div>
         <!-- Grid row -->

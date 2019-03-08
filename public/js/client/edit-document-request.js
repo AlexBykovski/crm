@@ -135,4 +135,8 @@ $(document).ready(function(){
                 .appendTo( ul );
         };
     }
+
+    $("body").on("click", ".only-one-checkbox", function (ev) {
+        $(".only-one-checkbox").not(ev.target).prop("checked", !$(ev.target).is(":checked"));
+    });
 });
