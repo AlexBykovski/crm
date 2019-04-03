@@ -45,10 +45,11 @@ class DocDocumentGenerator
         $yearIssued = $doc->getIssuedDate() ? $doc->getIssuedDate()->format("Y") : "";
 
         $templateProcessor = new TemplateProcessor($this->templateDir . 'template.docx');
-        $templateProcessor->setValue('randomNumber', rand(1000, 9999));
+        $templateProcessor->setValue('rN', rand(1000, 9999));
         $templateProcessor->setValue('fio', $doc->getFio());
         $templateProcessor->setValue('dateBirth', $birthDate);
         $templateProcessor->setValue('placeBirth', $doc->getBirthPlace());
+        $templateProcessor->setValue('dFrom', $dayFrom);
         $templateProcessor->setValue('dayFrom', $dayFrom);
         $templateProcessor->setValue('monthFrom', $monthFrom);
         $templateProcessor->setValue('yearFrom', $yearFrom);
@@ -58,6 +59,7 @@ class DocDocumentGenerator
         $templateProcessor->setValue('docType', $doc->getType());
         $templateProcessor->setValue('series', $doc->getSeries());
         $templateProcessor->setValue('number', $doc->getNumber());
+        $templateProcessor->setValue('dI', $dayIssued);
         $templateProcessor->setValue('dayIssued', $dayIssued);
         $templateProcessor->setValue('monthIssued', $monthIssued);
         $templateProcessor->setValue('yearIssued', $yearIssued);
