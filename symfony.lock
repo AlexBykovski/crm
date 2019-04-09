@@ -74,6 +74,9 @@
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
+    "irebega/docx-replacer": {
+        "version": "v1.0.5"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "docnet/tfpdf": "^2.2",
         "friendsofsymfony/user-bundle": "~2.0",
+        "irebega/docx-replacer": "^1.0",
         "phpoffice/phpword": "^0.16.0",
         "sensio/framework-extra-bundle": "^5.2",
         "setasign/fpdf": "^1.8",

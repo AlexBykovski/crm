@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ff286febc7e56f1c7b5e534cb728a8d",
+    "content-hash": "8e6d9094543e84825f12533c7ebc8e0a",
     "packages": [
         {
             "name": "docnet/tfpdf",
@@ -1362,6 +1362,48 @@
                 "User management"
             ],
             "time": "2018-03-08T08:59:27+00:00"
+        },
+        {
+            "name": "irebega/docx-replacer",
+            "version": "v1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/igorrebega/docx-replacer.git",
+                "reference": "9b097c9ef477aa7ea333bbcaefbb9b31ddbd631f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/igorrebega/docx-replacer/zipball/9b097c9ef477aa7ea333bbcaefbb9b31ddbd631f",
+                "reference": "9b097c9ef477aa7ea333bbcaefbb9b31ddbd631f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zip": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IRebega\\DocxReplacer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Rebega",
+                    "email": "igorrebega@gmail.com"
+                }
+            ],
+            "description": "PHP extension that allow you replace text to text or text to image in DOCX file",
+            "keywords": [
+                "docx",
+                "php",
+                "replace"
+            ],
+            "time": "2018-04-11T08:00:05+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
